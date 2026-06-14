@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OceanMan</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <h1>🌊 OceanMan</h1>
+        <div class="header-meta">
+            <span class="clock">{{ now.strftime('%H:%M') }}</span>
+            <span class="date">{{ now.strftime('%A, %d %b %Y') }}</span>
+        </div>
+    </div>
+</header>
+
+<nav class="day-nav">
+    {% for day_key, day_label in days %}
+    <a href="/?day={{ day_key }}"
+       class="day-tab{% if day_key == selected_day %} active{% endif %}{% if day_key == today %} today{% endif %}">
+        {{ day_label }}
+    </a>
+    {% endfor %}
+</nav>
+
+<main>
+    <div class="pools-grid">
+
+        {# ── Delfin ── #}
+        <section class="pool-card">
+            <div class="pool-header">
+                <h2>Delfin</h2>
+                {% if delfin %}
+                <span class="pool-meta">
+                    zaktualizowano {{ delfin.schedule.fetched_at[:16] | replace('T', ' ') }}
+                </span>
+                {% endif %}
+            </div>
+
+            {% if delfin_slots %}
+            <table class="slots-table">
+                <thead>
+                    <tr><th>Czas</th><th>Wolne tory</th></tr>
+                </thead>
+                <tbody>
+                    {% for slot in delfin_slots %}
+                    <tr class="{% if slot.is_current %}current-slot{% elif slot.is_past %}past-slot{% endif %}">
+                        <td class="time-cell">{{ slot.slot_start }}–{{ slot.slot_end }}</td>
+                        <td class="lanes-cell">
+                            <span class="lane-badge {{ slot.css_class }}">
+                                {{ slot.free_lanes }}/{{ slot.total_lanes }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% elif delfin %}
+            <p class="no-slots">Brak danych dla wybranego dnia.</p>
+
+            {% else %}
+            <div class="no-data">
+                <p>Brak danych. Kliknij poniżej, aby pobrać.</p>
+                <a href="/refresh" class="btn">Pobierz teraz</a>
+            </div>
+            {% endif %}
+        </section>
+
+        {# ── Foka (coming soon) ── #}
+        <section class="pool-card coming-soon">
+            <div class="pool-header">
+                <h2>Foka</h2>
+            </div>
+            <p class="coming-label">Wkrótce</p>
+        </section>
+
+        {# ── Inflancka (coming soon) ── #}
+        <section class="pool-card coming-soon">
+            <div class="pool-header">
+                <h2>Inflancka</h2>
+            </div>
+            <p class="coming-label">Wkrótce</p>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <a href="/refresh" class="refresh-link">↻ Odśwież teraz</a>
+</footer>
+
+</body>
+</html>

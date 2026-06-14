@@ -1,0 +1,230 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --ocean:    #0d2d54;
+    --wave:     #1a6daf;
+    --bg:       #f0f5ff;
+    --card:     #ffffff;
+    --text:     #1a2333;
+    --muted:    #6b7c93;
+    --border:   #e8edf5;
+    --good-bg:  #dcfce7;
+    --good-fg:  #16a34a;
+    --warn-bg:  #fef3c7;
+    --warn-fg:  #d97706;
+    --bad-bg:   #fee2e2;
+    --bad-fg:   #dc2626;
+    --zero-bg:  #f3f4f6;
+    --zero-fg:  #9ca3af;
+    --cur-bg:   #fffbeb;
+    --cur-line: #f59e0b;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+    background: var(--ocean);
+    color: #fff;
+    padding: 1rem 1.5rem;
+}
+
+.header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+
+.header-meta { text-align: right; }
+.clock { display: block; font-size: 1.3rem; font-weight: 600; }
+.date  { font-size: 0.75rem; opacity: 0.7; }
+
+/* ── Day nav ── */
+.day-nav {
+    background: var(--ocean);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.day-nav::-webkit-scrollbar { display: none; }
+
+.day-tab {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    padding: 0.55rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s;
+}
+.day-tab:hover  { color: rgba(255,255,255,0.85); }
+.day-tab.today  { color: rgba(255,255,255,0.8); }
+.day-tab.active { color: #fff; border-bottom-color: #4fc3f7; }
+
+/* ── Main / grid ── */
+main {
+    max-width: 960px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.pools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+/* ── Pool card ── */
+.pool-card {
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px var(--border);
+}
+
+.pool-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pool-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ocean);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.pool-meta {
+    font-size: 0.68rem;
+    color: var(--muted);
+}
+
+.coming-soon { opacity: 0.45; }
+.coming-label {
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ── Slots table ── */
+.slots-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.slots-table thead tr {
+    background: #f8f9fb;
+    border-bottom: 1px solid var(--border);
+}
+
+.slots-table th {
+    padding: 0.35rem 0.75rem;
+    text-align: left;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.slots-table tbody tr {
+    border-bottom: 1px solid #f2f4f8;
+    transition: background 0.1s;
+}
+.slots-table tbody tr:last-child { border-bottom: none; }
+.slots-table tbody tr:hover { background: #f8faff; }
+
+.time-cell {
+    padding: 0.32rem 0.75rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    font-size: 0.78rem;
+}
+
+.lanes-cell { padding: 0.32rem 0.75rem; }
+
+/* current time slot */
+.current-slot {
+    background: var(--cur-bg) !important;
+    border-left: 3px solid var(--cur-line);
+}
+.current-slot .time-cell {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* past slots */
+.past-slot { opacity: 0.4; }
+
+/* ── Lane badges ── */
+.lane-badge {
+    display: inline-block;
+    padding: 0.12rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+.good { background: var(--good-bg); color: var(--good-fg); }
+.warn { background: var(--warn-bg); color: var(--warn-fg); }
+.bad  { background: var(--bad-bg);  color: var(--bad-fg);  }
+.zero { background: var(--zero-bg); color: var(--zero-fg); }
+
+/* ── Empty states ── */
+.no-data, .no-slots {
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.4rem 0.9rem;
+    background: var(--ocean);
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.btn:hover { background: var(--wave); }
+
+/* ── Footer ── */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.78rem;
+}
+
+.refresh-link {
+    color: var(--wave);
+    text-decoration: none;
+}
+.refresh-link:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .pools-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 1.15rem; }
+}
