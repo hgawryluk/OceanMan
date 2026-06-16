@@ -125,6 +125,17 @@ body {
 .day-tab--today        { color: rgba(255,255,255,.78); }
 .day-tab--active       { color: #fff; border-bottom-color: var(--c-accent); }
 
+.today-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--c-accent);
+    vertical-align: middle;
+    margin-left: 2px;
+    margin-bottom: 2px;
+}
+
 /* ── Container ── */
 .container {
     max-width: 1200px;
@@ -164,6 +175,13 @@ body {
     align-items: flex-start;
     justify-content: space-between;
     gap: 0.5rem;
+}
+
+.pool-card__name-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
 }
 
 .pool-card__name {
@@ -214,6 +232,19 @@ body {
 
 .slots-list { padding: 0.2rem 0; }
 
+.hour-divider {
+    padding: 0.15rem 1rem 0.1rem;
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--c-text-sec);
+    background: var(--c-bg);
+    border-top: 1px solid var(--c-border);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
 .slot-row {
     display: flex;
     align-items: center;
@@ -229,7 +260,7 @@ body {
     padding-left: calc(1rem - 3px);
 }
 .slot-row--current .slot-time { font-weight: 600; color: var(--c-text); }
-.slot-row--past { opacity: 0.36; }
+.slot-row--past { opacity: 0.45; }
 
 .slot-dot {
     width: 9px;
