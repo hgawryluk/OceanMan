@@ -4,95 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OceanMan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<header>
-    <div class="header-inner">
-        <h1>🌊 OceanMan</h1>
-        <div class="header-meta">
-            <span class="clock">{{ now.strftime('%H:%M') }}</span>
-            <span class="date">{{ now.strftime('%A, %d %b %Y') }}</span>
+<header class="app-bar">
+    <div class="app-bar__inner">
+        <div class="app-bar__brand">
+            <span class="app-bar__logo">🌊</span>
+            <span class="app-bar__title">OceanMan</span>
+        </div>
+        <div class="app-bar__clock">
+            <span class="clock" id="clock">{{ now.strftime('%H:%M') }}</span>
+            <span class="date">{{ now.strftime('%A, %d %b') }}</span>
         </div>
     </div>
 </header>
 
 <nav class="day-nav">
-    {% for day_key, day_label in days %}
-    <a href="/?day={{ day_key }}"
-       class="day-tab{% if day_key == selected_day %} active{% endif %}{% if day_key == today %} today{% endif %}">
-        {{ day_label }}
-    </a>
-    {% endfor %}
+    <div class="day-nav__inner">
+        {% for day_key, day_label in days %}
+        <a href="/?day={{ day_key }}"
+           class="day-tab{% if day_key == selected_day %} day-tab--active{% endif %}{% if day_key == today %} day-tab--today{% endif %}">
+            {{ day_label }}
+        </a>
+        {% endfor %}
+    </div>
 </nav>
 
+<div class="status-bar">
+    <div class="status-bar__inner">
+        <span class="status-bar__info">Harmonogramy są aktualizowane raz w tygodniu</span>
+        <a href="/refresh" class="refresh-btn" id="refresh-btn">
+            <span class="refresh-btn__icon">↻</span>
+            <span class="refresh-btn__label">Odśwież</span>
+        </a>
+    </div>
+</div>
+
 <main>
-    <div class="pools-grid">
+    <div class="container">
 
-        {# ── Delfin ── #}
-        <section class="pool-card">
-            <div class="pool-header">
-                <h2>Delfin</h2>
-                {% if delfin %}
-                <span class="pool-meta">
-                    zaktualizowano {{ delfin.schedule.fetched_at[:16] | replace('T', ' ') }}
-                </span>
+        {# ── Pool cards ── #}
+        <div class="pools-grid">
+            {% for pool in pools %}
+            <section class="pool-card">
+
+                <div class="pool-card__header">
+                    <div>
+                        <h2 class="pool-card__name">{{ pool.name }}</h2>
+                        <div class="pool-card__address">{{ pool.address }}</div>
+                    </div>
+                    <a href="{{ pool.maps_url }}" target="_blank" rel="noopener" class="maps-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Mapy
+                    </a>
+                </div>
+
+                {% if pool.data %}
+                <div class="pool-card__meta">
+                    Zaktualizowano: {{ pool.data.schedule.fetched_at[:16] | replace('T', ' ') }}
+                </div>
                 {% endif %}
-            </div>
 
-            {% if delfin_slots %}
-            <table class="slots-table">
-                <thead>
-                    <tr><th>Czas</th><th>Wolne tory</th></tr>
-                </thead>
-                <tbody>
-                    {% for slot in delfin_slots %}
-                    <tr class="{% if slot.is_current %}current-slot{% elif slot.is_past %}past-slot{% endif %}">
-                        <td class="time-cell">{{ slot.slot_start }}–{{ slot.slot_end }}</td>
-                        <td class="lanes-cell">
-                            <span class="lane-badge {{ slot.css_class }}">
-                                {{ slot.free_lanes }}/{{ slot.total_lanes }}
-                            </span>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                <div class="slots-container">
+                    {% if pool.slots %}
+                    <div class="slots-list">
+                        {% for slot in pool.slots %}
+                        <div class="slot-row{% if slot.is_current %} slot-row--current{% elif slot.is_past %} slot-row--past{% endif %}"
+                             {% if slot.is_current %}id="current-slot-{{ pool.key }}"{% endif %}>
+                            <span class="slot-dot slot-dot--{{ slot.css_class }}"></span>
+                            <span class="slot-time">{{ slot.slot_start }}</span>
+                            <span class="slot-lanes {{ slot.css_class }}">{{ slot.free_lanes }}/{{ slot.total_lanes }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
 
-            {% elif delfin %}
-            <p class="no-slots">Brak danych dla wybranego dnia.</p>
+                    {% elif pool.data %}
+                    <p class="empty-state">Brak danych dla wybranego dnia.</p>
 
-            {% else %}
-            <div class="no-data">
-                <p>Brak danych. Kliknij poniżej, aby pobrać.</p>
-                <a href="/refresh" class="btn">Pobierz teraz</a>
-            </div>
-            {% endif %}
-        </section>
+                    {% else %}
+                    <div class="empty-state">
+                        <p>Brak danych.</p>
+                        <a href="/refresh" class="btn">Pobierz teraz</a>
+                    </div>
+                    {% endif %}
+                </div>
 
-        {# ── Foka (coming soon) ── #}
-        <section class="pool-card coming-soon">
-            <div class="pool-header">
-                <h2>Foka</h2>
-            </div>
-            <p class="coming-label">Wkrótce</p>
-        </section>
-
-        {# ── Inflancka (coming soon) ── #}
-        <section class="pool-card coming-soon">
-            <div class="pool-header">
-                <h2>Inflancka</h2>
-            </div>
-            <p class="coming-label">Wkrótce</p>
-        </section>
+            </section>
+            {% endfor %}
+        </div>
 
     </div>
 </main>
 
-<footer>
-    <a href="/refresh" class="refresh-link">↻ Odśwież teraz</a>
-</footer>
+<script>
+    // Scroll each pool card to its current slot
+    document.querySelectorAll('[id^="current-slot-"]').forEach(function (el) {
+        var container = el.closest('.slots-container');
+        if (!container) return;
+        var elRect = el.getBoundingClientRect();
+        var cRect  = container.getBoundingClientRect();
+        container.scrollTop += (elRect.top - cRect.top) - (container.clientHeight / 2) + (el.clientHeight / 2);
+    });
+
+    // Refresh button loading state
+    document.getElementById('refresh-btn').addEventListener('click', function () {
+        this.classList.add('refresh-btn--loading');
+        this.querySelector('.refresh-btn__label').textContent = 'Pobieranie…';
+    });
+
+    // Live clock tick
+    function tick() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const el = document.getElementById('clock');
+        if (el) el.textContent = h + ':' + m;
+    }
+    setInterval(tick, 30000);
+</script>
 
 </body>
 </html>

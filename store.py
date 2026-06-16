@@ -105,3 +105,12 @@ def log_fetch(pool: str, changed: bool, note: str = ""):
             "INSERT INTO fetch_log (pool, checked_at, changed, note) VALUES (?,?,?,?)",
             (pool, datetime.now().isoformat(), int(changed), note),
         )
+
+
+def get_last_checked(pool: str) -> str | None:
+    with sqlite3.connect(DB_PATH) as con:
+        row = con.execute(
+            "SELECT checked_at FROM fetch_log WHERE pool = ? ORDER BY checked_at DESC LIMIT 1",
+            (pool,),
+        ).fetchone()
+        return row[0] if row else None
