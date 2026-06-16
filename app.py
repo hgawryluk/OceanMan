@@ -218,10 +218,10 @@ def index():
     potocka_slots = _prepare_slots(potocka_data["slots"], selected_day, now, is_today) if potocka_data else []
 
     pools = [
-        {"key": "delfin",    **POOL_INFO["delfin"],    "data": delfin_data,    "slots": delfin_slots},
-        {"key": "foka",      **POOL_INFO["foka"],      "data": foka_data,      "slots": foka_slots},
-        {"key": "inflancka", **POOL_INFO["inflancka"], "data": inflancka_data, "slots": inflancka_slots},
-        {"key": "potocka",   **POOL_INFO["potocka"],   "data": potocka_data,   "slots": potocka_slots},
+        {"key": "delfin",    **POOL_INFO["delfin"],    "data": delfin_data,    "slots": delfin_slots,    "current_slot": next((s for s in delfin_slots    if s["is_current"]), None)},
+        {"key": "foka",      **POOL_INFO["foka"],      "data": foka_data,      "slots": foka_slots,      "current_slot": next((s for s in foka_slots      if s["is_current"]), None)},
+        {"key": "inflancka", **POOL_INFO["inflancka"], "data": inflancka_data, "slots": inflancka_slots, "current_slot": next((s for s in inflancka_slots if s["is_current"]), None)},
+        {"key": "potocka",   **POOL_INFO["potocka"],   "data": potocka_data,   "slots": potocka_slots,   "current_slot": next((s for s in potocka_slots   if s["is_current"]), None)},
     ]
 
     return render_template(
