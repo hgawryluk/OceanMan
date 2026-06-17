@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OceanMan</title>
+    <title>OceanMan — Tory pływackie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -14,12 +15,15 @@
 <header class="app-bar">
     <div class="app-bar__inner">
         <div class="app-bar__brand">
-            <span class="app-bar__logo">🌊</span>
-            <span class="app-bar__title">OceanMan</span>
+            <span class="material-symbols-rounded app-bar__logo">pool</span>
+            <div class="app-bar__brand-text">
+                <span class="app-bar__title">OceanMan</span>
+                <span class="app-bar__subtitle">Dostępność torów</span>
+            </div>
         </div>
         <div class="app-bar__clock">
             <span class="clock" id="clock">{{ now.strftime('%H:%M') }}</span>
-            <span class="date">{{ now.strftime('%A, %d %b') }}</span>
+            <span class="date">{{ now_date_pl }}</span>
         </div>
     </div>
 </header>
@@ -35,18 +39,55 @@
     </div>
 </nav>
 
-<div class="status-bar">
-    <div class="status-bar__inner">
-        <span class="status-bar__info">Harmonogramy są aktualizowane raz w tygodniu</span>
-        <a href="/refresh" class="refresh-btn" id="refresh-btn">
-            <span class="refresh-btn__icon">↻</span>
-            <span class="refresh-btn__label">Odśwież</span>
-        </a>
-    </div>
-</div>
-
 <main>
     <div class="container">
+
+        {# ── Availability legend ── #}
+        <div class="legend">
+            <span class="legend__title">Legenda:</span>
+            <div class="legend__chips">
+                <span class="legend-chip">
+                    <span class="legend-chip__dot legend-chip__dot--free"></span>
+                    Swobodnie
+                    <span class="legend-chip__hint">5–6 torów</span>
+                </span>
+                <span class="legend-chip">
+                    <span class="legend-chip__dot legend-chip__dot--ok"></span>
+                    Komfortowo
+                    <span class="legend-chip__hint">3–4 tory</span>
+                </span>
+                <span class="legend-chip">
+                    <span class="legend-chip__dot legend-chip__dot--busy"></span>
+                    Tłoczno
+                    <span class="legend-chip__hint">1–2 tory</span>
+                </span>
+                <span class="legend-chip">
+                    <span class="legend-chip__dot legend-chip__dot--full"></span>
+                    Brak wolnych
+                </span>
+            </div>
+        </div>
+
+        {# ── Best-now summary ── #}
+        {% set now_pools = pools | selectattr('current_slot') | list %}
+        {% if now_pools %}
+        <section class="summary-card">
+            <div class="summary-card__header">
+                <span class="material-symbols-rounded summary-card__icon">water</span>
+                <span class="summary-card__title">Teraz dostępne</span>
+                <span class="summary-card__time">{{ now.strftime('%H:%M') }}</span>
+            </div>
+            <div class="summary-card__items">
+                {% for pool in now_pools | sort(attribute='current_slot.free_lanes', reverse=True) %}
+                <div class="summary-item">
+                    <span class="summary-item__name">{{ pool.name }}</span>
+                    <span class="summary-item__slot">{{ pool.current_slot.slot_start }}–{{ pool.current_slot.slot_end }}</span>
+                    <span class="lane-badge {{ pool.current_slot.css_class }}">{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
         {# ── Pool cards ── #}
         <div class="pools-grid">
@@ -54,19 +95,20 @@
             <section class="pool-card">
 
                 <div class="pool-card__header">
-                    <div>
+                    <div class="pool-card__info">
                         <div class="pool-card__name-row">
                             <h2 class="pool-card__name">{{ pool.name }}</h2>
                             {% if pool.current_slot %}
-                            <span class="lane-badge {{ pool.current_slot.css_class }}">{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}</span>
+                            <span class="lane-badge lane-badge--hero {{ pool.current_slot.css_class }}">{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}</span>
                             {% endif %}
                         </div>
-                        <div class="pool-card__address">{{ pool.address }}</div>
+                        <div class="pool-card__address">
+                            <span class="material-symbols-rounded pool-card__addr-icon">location_on</span>
+                            <span class="pool-card__address-text">{{ pool.address }}</span>
+                        </div>
                     </div>
-                    <a href="{{ pool.maps_url }}" target="_blank" rel="noopener" class="maps-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        </svg>
+                    <a href="{{ pool.maps_url }}" target="_blank" rel="noopener" class="maps-btn" aria-label="Otwórz w Mapach Google">
+                        <span class="material-symbols-rounded">map</span>
                         Mapy
                     </a>
                 </div>
@@ -89,8 +131,8 @@
                         {% endif %}
                         <div class="slot-row{% if slot.is_current %} slot-row--current{% elif slot.is_past %} slot-row--past{% endif %}"
                              {% if slot.is_current %}id="current-slot-{{ pool.key }}"{% endif %}>
-                            <span class="slot-dot slot-dot--{{ slot.css_class }}"></span>
                             <span class="slot-time">{{ slot.slot_start }}</span>
+                            {% if slot.is_current %}<span class="now-badge">TERAZ</span>{% endif %}
                             <span class="slot-lanes {{ slot.css_class }}">{{ slot.free_lanes }}/{{ slot.total_lanes }}</span>
                         </div>
                         {% endfor %}
@@ -100,10 +142,7 @@
                     <p class="empty-state">Brak danych dla wybranego dnia.</p>
 
                     {% else %}
-                    <div class="empty-state">
-                        <p>Brak danych.</p>
-                        <a href="/refresh" class="btn">Pobierz teraz</a>
-                    </div>
+                    <p class="empty-state">Brak danych.</p>
                     {% endif %}
                 </div>
 
@@ -115,7 +154,6 @@
 </main>
 
 <script>
-    // Scroll each pool card to its current slot
     document.querySelectorAll('[id^="current-slot-"]').forEach(function (el) {
         var container = el.closest('.slots-container');
         if (!container) return;
@@ -124,13 +162,6 @@
         container.scrollTop += (elRect.top - cRect.top) - (container.clientHeight / 2) + (el.clientHeight / 2);
     });
 
-    // Refresh button loading state
-    document.getElementById('refresh-btn').addEventListener('click', function () {
-        this.classList.add('refresh-btn--loading');
-        this.querySelector('.refresh-btn__label').textContent = 'Pobieranie…';
-    });
-
-    // Live clock tick
     function tick() {
         const now = new Date();
         const h = String(now.getHours()).padStart(2, '0');
