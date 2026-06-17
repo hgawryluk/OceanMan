@@ -27,6 +27,16 @@ DAYS = [
     ("sunday",    "Niedz"),
 ]
 
+PL_DAYS   = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Niedz"]
+PL_MONTHS = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
+
+POOL_MODULES = {
+    "delfin":    delfin_pool,
+    "foka":      foka_pool,
+    "inflancka": inflancka_pool,
+    "potocka":   potocka_pool,
+}
+
 POOL_INFO = {
     "delfin": {
         "name": "Delfin",
@@ -49,7 +59,6 @@ POOL_INFO = {
         "maps_url": "https://maps.google.com/?q=Pływalnia+Potocka+Warszawa",
     },
 }
-
 
 
 def _lane_class(free: int, total: int) -> str:
@@ -90,112 +99,38 @@ def _prepare_slots(raw_slots: list[dict], selected_day: str, now: datetime, is_t
     return result
 
 
-
 # ---------------------------------------------------------------------------
 # Refresh logic
 # ---------------------------------------------------------------------------
 
-def refresh_delfin():
-    log.info("Delfin: checking for updates…")
+def _refresh_pool(key: str, module) -> None:
+    label = key.capitalize()
+    log.info(f"{label}: checking for updates…")
     try:
-        url = delfin_pool.discover()
+        url = module.discover()
         if not url:
-            log.warning("Delfin: no PDF URL found on page")
-            store.log_fetch("delfin", False, "no url found")
+            log.warning(f"{label}: no PDF URL found on page")
+            store.log_fetch(key, False, "no url found")
             return
         pdf_bytes, md5 = downloader.fetch_pdf(url)
-        if md5 == store.get_last_hash("delfin"):
-            log.info("Delfin: no change")
-            store.log_fetch("delfin", False, "no change")
+        if md5 == store.get_last_hash(key):
+            log.info(f"{label}: no change")
+            store.log_fetch(key, False, "no change")
             return
-        schedule = delfin_pool.parse(pdf_bytes, url, md5)
+        schedule = module.parse(pdf_bytes, url, md5)
         store.upsert_schedule(schedule)
-        store.log_fetch("delfin", True, f"{len(schedule.slots)} slots")
-        log.info(f"Delfin: updated — {len(schedule.slots)} slots stored")
+        store.log_fetch(key, True, f"{len(schedule.slots)} slots")
+        log.info(f"{label}: updated — {len(schedule.slots)} slots stored")
         if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
-            log.warning("Delfin: all slots report 0 free lanes — parser may be misreading the file")
+            log.warning(f"{label}: all slots report 0 free lanes — parser may be misreading the file")
     except Exception as exc:
-        log.error(f"Delfin refresh failed: {exc}")
-        store.log_fetch("delfin", False, str(exc))
+        log.error(f"{label} refresh failed: {exc}")
+        store.log_fetch(key, False, str(exc))
 
 
-def refresh_foka():
-    log.info("Foka: checking for updates…")
-    try:
-        url = foka_pool.discover()
-        if not url:
-            log.warning("Foka: no PDF URL found on page")
-            store.log_fetch("foka", False, "no url found")
-            return
-        pdf_bytes, md5 = downloader.fetch_pdf(url)
-        if md5 == store.get_last_hash("foka"):
-            log.info("Foka: no change")
-            store.log_fetch("foka", False, "no change")
-            return
-        schedule = foka_pool.parse(pdf_bytes, url, md5)
-        store.upsert_schedule(schedule)
-        store.log_fetch("foka", True, f"{len(schedule.slots)} slots")
-        log.info(f"Foka: updated — {len(schedule.slots)} slots stored")
-        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
-            log.warning("Foka: all slots report 0 free lanes — parser may be misreading the file")
-    except Exception as exc:
-        log.error(f"Foka refresh failed: {exc}")
-        store.log_fetch("foka", False, str(exc))
-
-
-def refresh_inflancka():
-    log.info("Inflancka: checking for updates…")
-    try:
-        url = inflancka_pool.discover()
-        if not url:
-            log.warning("Inflancka: no PDF URL found on page")
-            store.log_fetch("inflancka", False, "no url found")
-            return
-        pdf_bytes, md5 = downloader.fetch_pdf(url)
-        if md5 == store.get_last_hash("inflancka"):
-            log.info("Inflancka: no change")
-            store.log_fetch("inflancka", False, "no change")
-            return
-        schedule = inflancka_pool.parse(pdf_bytes, url, md5)
-        store.upsert_schedule(schedule)
-        store.log_fetch("inflancka", True, f"{len(schedule.slots)} slots")
-        log.info(f"Inflancka: updated — {len(schedule.slots)} slots stored")
-        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
-            log.warning("Inflancka: all slots report 0 free lanes — parser may be misreading the file")
-    except Exception as exc:
-        log.error(f"Inflancka refresh failed: {exc}")
-        store.log_fetch("inflancka", False, str(exc))
-
-
-def refresh_potocka():
-    log.info("Potocka: checking for updates…")
-    try:
-        url = potocka_pool.discover()
-        if not url:
-            log.warning("Potocka: no PDF URL found on page")
-            store.log_fetch("potocka", False, "no url found")
-            return
-        pdf_bytes, md5 = downloader.fetch_pdf(url)
-        if md5 == store.get_last_hash("potocka"):
-            log.info("Potocka: no change")
-            store.log_fetch("potocka", False, "no change")
-            return
-        schedule = potocka_pool.parse(pdf_bytes, url, md5)
-        store.upsert_schedule(schedule)
-        store.log_fetch("potocka", True, f"{len(schedule.slots)} slots")
-        log.info(f"Potocka: updated — {len(schedule.slots)} slots stored")
-        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
-            log.warning("Potocka: all slots report 0 free lanes — parser may be misreading the file")
-    except Exception as exc:
-        log.error(f"Potocka refresh failed: {exc}")
-        store.log_fetch("potocka", False, str(exc))
-
-
-def refresh_all():
-    refresh_delfin()
-    refresh_foka()
-    refresh_inflancka()
-    refresh_potocka()
+def refresh_all() -> None:
+    for key, module in POOL_MODULES.items():
+        _refresh_pool(key, module)
 
 
 # ---------------------------------------------------------------------------
@@ -210,31 +145,26 @@ def index():
     day_param = request.args.get("day", "").lower()
     valid_days = {d for d, _ in DAYS}
     selected_day = day_param if day_param in valid_days else today
-
     is_today = selected_day == today
 
-    delfin_data  = store.get_schedule("delfin")
-    delfin_slots = _prepare_slots(delfin_data["slots"], selected_day, now, is_today) if delfin_data else []
+    pools = []
+    for key, info in POOL_INFO.items():
+        data  = store.get_schedule(key)
+        slots = _prepare_slots(data["slots"], selected_day, now, is_today) if data else []
+        pools.append({
+            "key": key,
+            **info,
+            "data":         data,
+            "slots":        slots,
+            "current_slot": next((s for s in slots if s["is_current"]), None),
+        })
 
-    foka_data  = store.get_schedule("foka")
-    foka_slots = _prepare_slots(foka_data["slots"], selected_day, now, is_today) if foka_data else []
-
-    inflancka_data  = store.get_schedule("inflancka")
-    inflancka_slots = _prepare_slots(inflancka_data["slots"], selected_day, now, is_today) if inflancka_data else []
-
-    potocka_data  = store.get_schedule("potocka")
-    potocka_slots = _prepare_slots(potocka_data["slots"], selected_day, now, is_today) if potocka_data else []
-
-    pools = [
-        {"key": "delfin",    **POOL_INFO["delfin"],    "data": delfin_data,    "slots": delfin_slots,    "current_slot": next((s for s in delfin_slots    if s["is_current"]), None)},
-        {"key": "foka",      **POOL_INFO["foka"],      "data": foka_data,      "slots": foka_slots,      "current_slot": next((s for s in foka_slots      if s["is_current"]), None)},
-        {"key": "inflancka", **POOL_INFO["inflancka"], "data": inflancka_data, "slots": inflancka_slots, "current_slot": next((s for s in inflancka_slots if s["is_current"]), None)},
-        {"key": "potocka",   **POOL_INFO["potocka"],   "data": potocka_data,   "slots": potocka_slots,   "current_slot": next((s for s in potocka_slots   if s["is_current"]), None)},
-    ]
+    now_date_pl = f"{PL_DAYS[now.weekday()]}, {now.day} {PL_MONTHS[now.month - 1]}"
 
     return render_template(
         "index.html",
         now=now,
+        now_date_pl=now_date_pl,
         today=today,
         selected_day=selected_day,
         days=DAYS,
