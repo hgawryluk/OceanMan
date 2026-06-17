@@ -1,3 +1,4 @@
+import io
 import re
 from datetime import datetime
 from urllib.parse import urljoin
@@ -27,7 +28,7 @@ LANE_NUMS = set(map(str, range(10)))
 
 # Color of a free ("Tory dostępne") cell in the PDF color legend.
 FREE_COLOR = (0.706, 0.776, 0.906)
-COLOR_TOL = 0.012
+COLOR_TOL = 0.03
 
 
 def _color_is_free(color) -> bool:
@@ -157,7 +158,6 @@ def _parse_page(page) -> tuple[str | None, list[SlotReading]]:
 
 
 def parse(pdf_bytes: bytes, source_url: str, source_hash: str) -> PoolSchedule:
-    import io
     all_slots: list[SlotReading] = []
 
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:

@@ -30,11 +30,22 @@ def _parse_time(s: str) -> tuple[str, str] | None:
     return f"{int(h1):02d}:{m1}", f"{int(h2):02d}:{m2}"
 
 
+def _is_white(color) -> bool:
+    if color is None:
+        return True
+    if isinstance(color, (int, float)):
+        return color >= 0.85
+    if isinstance(color, (list, tuple)):
+        if len(color) == 4 and all(c == 0 for c in color):
+            return True  # CMYK (0,0,0,0) = white
+        return all(c >= 0.85 for c in color[:3])
+    return True
+
+
 def _cell_is_free(cell_rects: list) -> bool:
-    """No rect at all, or only white (1.0) rects = free lane."""
     if not cell_rects:
         return True
-    return all(r.get("non_stroking_color") == 1.0 for r in cell_rects)
+    return all(_is_white(r.get("non_stroking_color")) for r in cell_rects)
 
 
 def discover() -> str | None:
