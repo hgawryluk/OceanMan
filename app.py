@@ -112,6 +112,8 @@ def refresh_delfin():
         store.upsert_schedule(schedule)
         store.log_fetch("delfin", True, f"{len(schedule.slots)} slots")
         log.info(f"Delfin: updated — {len(schedule.slots)} slots stored")
+        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
+            log.warning("Delfin: all slots report 0 free lanes — parser may be misreading the file")
     except Exception as exc:
         log.error(f"Delfin refresh failed: {exc}")
         store.log_fetch("delfin", False, str(exc))
@@ -134,6 +136,8 @@ def refresh_foka():
         store.upsert_schedule(schedule)
         store.log_fetch("foka", True, f"{len(schedule.slots)} slots")
         log.info(f"Foka: updated — {len(schedule.slots)} slots stored")
+        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
+            log.warning("Foka: all slots report 0 free lanes — parser may be misreading the file")
     except Exception as exc:
         log.error(f"Foka refresh failed: {exc}")
         store.log_fetch("foka", False, str(exc))
@@ -156,6 +160,8 @@ def refresh_inflancka():
         store.upsert_schedule(schedule)
         store.log_fetch("inflancka", True, f"{len(schedule.slots)} slots")
         log.info(f"Inflancka: updated — {len(schedule.slots)} slots stored")
+        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
+            log.warning("Inflancka: all slots report 0 free lanes — parser may be misreading the file")
     except Exception as exc:
         log.error(f"Inflancka refresh failed: {exc}")
         store.log_fetch("inflancka", False, str(exc))
@@ -178,6 +184,8 @@ def refresh_potocka():
         store.upsert_schedule(schedule)
         store.log_fetch("potocka", True, f"{len(schedule.slots)} slots")
         log.info(f"Potocka: updated — {len(schedule.slots)} slots stored")
+        if schedule.slots and all(s.free_lanes == 0 for s in schedule.slots):
+            log.warning("Potocka: all slots report 0 free lanes — parser may be misreading the file")
     except Exception as exc:
         log.error(f"Potocka refresh failed: {exc}")
         store.log_fetch("potocka", False, str(exc))

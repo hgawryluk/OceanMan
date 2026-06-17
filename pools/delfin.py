@@ -25,12 +25,16 @@ WEEKDAY_MAP = {
 }
 
 TIME_RE = re.compile(r"(\d{2})[.\:](\d{2})-(\d{2})[.\:](\d{2})")
+DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 
 
 def discover() -> str | None:
     resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "lxml")
+
+    candidates: list[tuple[datetime, str]] = []
+    fallback: str | None = None
 
     for a in soup.find_all("a", href=True):
         href = a["href"]
@@ -41,13 +45,25 @@ def discover() -> str | None:
         )
         if not is_doc:
             continue
-        text = a.get_text(" ", strip=True).lower()
-        if "grafik" in text and "tor" in text and "brodzik" not in text and "niecki" not in text:
-            return urljoin(BASE_URL, href) if href.startswith("/") else href
-        if "wolnych" in text and "tor" in text:
-            return urljoin(BASE_URL, href) if href.startswith("/") else href
+        text = a.get_text(" ", strip=True)
+        text_lower = text.lower()
+        is_match = (
+            ("grafik" in text_lower and "tor" in text_lower and "brodzik" not in text_lower and "niecki" not in text_lower)
+            or ("wolnych" in text_lower and "tor" in text_lower)
+        )
+        if not is_match:
+            continue
+        full_url = urljoin(BASE_URL, href) if href.startswith("/") else href
+        dates = DATE_RE.findall(text)
+        if dates:
+            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
+            candidates.append((datetime(y, mo, d), full_url))
+        else:
+            fallback = full_url
 
-    return None
+    if candidates:
+        return max(candidates, key=lambda x: x[0])[1]
+    return fallback
 
 
 def parse(file_bytes: bytes, source_url: str, source_hash: str) -> PoolSchedule:
