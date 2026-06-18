@@ -75,7 +75,6 @@
             <div class="summary-card__header">
                 <span class="material-symbols-rounded summary-card__icon">water</span>
                 <span class="summary-card__title">Teraz dostępne</span>
-                <span class="summary-card__time">{{ now.strftime('%H:%M') }}</span>
             </div>
             <div class="summary-card__items">
                 {% for pool in now_pools | sort(attribute='current_slot.free_lanes', reverse=True) %}
