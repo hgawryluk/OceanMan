@@ -39,7 +39,7 @@
     </div>
 </nav>
 
-<main>
+<main data-day="{{ selected_day }}">
     <div class="container">
 
         {# ── Availability legend ── #}
@@ -70,13 +70,12 @@
 
         {# ── Best-now summary ── #}
         {% set now_pools = pools | selectattr('current_slot') | list %}
-        {% if now_pools %}
-        <section class="summary-card">
+        <section class="summary-card" id="summary-card" {% if not now_pools %}hidden{% endif %}>
             <div class="summary-card__header">
                 <span class="material-symbols-rounded summary-card__icon">water</span>
                 <span class="summary-card__title">Teraz dostępne tory</span>
             </div>
-            <div class="summary-card__items">
+            <div class="summary-card__items" id="summary-items">
                 {% for pool in now_pools | sort(attribute='current_slot.free_lanes', reverse=True) %}
                 <div class="summary-item">
                     <span class="summary-item__name">{{ pool.name }}</span>
@@ -86,20 +85,21 @@
                 {% endfor %}
             </div>
         </section>
-        {% endif %}
 
         {# ── Pool cards ── #}
         <div class="pools-grid">
             {% for pool in pools %}
-            <section class="pool-card">
+            <section class="pool-card" data-pool-key="{{ pool.key }}" data-pool-name="{{ pool.name }}">
 
                 <div class="pool-card__header">
                     <div class="pool-card__info">
                         <div class="pool-card__name-row">
                             <h2 class="pool-card__name">{{ pool.name }}</h2>
-                            {% if pool.current_slot %}
-                            <span class="lane-badge lane-badge--hero {{ pool.current_slot.css_class }}">{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}</span>
-                            {% endif %}
+                            <span class="lane-badge lane-badge--hero {{ pool.current_slot.css_class if pool.current_slot else '' }}"
+                                  id="hero-{{ pool.key }}"
+                                  {% if not pool.current_slot %}hidden{% endif %}>
+                                {%- if pool.current_slot %}{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}{% endif -%}
+                            </span>
                         </div>
                         <div class="pool-card__address">
                             <span class="material-symbols-rounded pool-card__addr-icon">location_on</span>
@@ -129,6 +129,11 @@
                         {% set ns.prev_hour = cur_hour %}
                         {% endif %}
                         <div class="slot-row{% if slot.is_current %} slot-row--current{% elif slot.is_past %} slot-row--past{% endif %}"
+                             data-start="{{ slot.slot_start }}"
+                             data-end="{{ slot.slot_end }}"
+                             data-free="{{ slot.free_lanes }}"
+                             data-total="{{ slot.total_lanes }}"
+                             data-css="{{ slot.css_class }}"
                              {% if slot.is_current %}id="current-slot-{{ pool.key }}"{% endif %}>
                             <span class="slot-time">{{ slot.slot_start }}</span>
                             {% if slot.is_current %}<span class="now-badge">TERAZ</span>{% endif %}
@@ -156,22 +161,112 @@
 </main>
 
 <script>
-    document.querySelectorAll('[id^="current-slot-"]').forEach(function (el) {
-        var container = el.closest('.slots-container');
-        if (!container) return;
-        var elRect = el.getBoundingClientRect();
-        var cRect  = container.getBoundingClientRect();
-        container.scrollTop += (elRect.top - cRect.top) - (container.clientHeight / 2) + (el.clientHeight / 2);
-    });
+(function () {
+    var DAYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+
+    function todayKey() { return DAYS[new Date().getDay()]; }
+    function nowMin()   { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+    function toMin(t)   { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
 
     function tick() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        const el = document.getElementById('clock');
-        if (el) el.textContent = h + ':' + m;
+        var d = new Date();
+        var el = document.getElementById('clock');
+        if (el) el.textContent = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
     }
-    setInterval(tick, 60000);
+
+    function updateAll() {
+        var main    = document.querySelector('main');
+        var pageDay = main ? main.dataset.day : null;
+        var isToday = pageDay === todayKey();
+        var now     = nowMin();
+
+        // Reset all dynamic slot state
+        document.querySelectorAll('.slot-row[data-start]').forEach(function (row) {
+            row.classList.remove('slot-row--current', 'slot-row--past');
+            row.removeAttribute('id');
+            var badge = row.querySelector('.now-badge');
+            if (badge) badge.remove();
+        });
+
+        var currentSlots = [];
+
+        if (isToday) {
+            document.querySelectorAll('[data-pool-key]').forEach(function (card) {
+                var key  = card.dataset.poolKey;
+                var name = card.dataset.poolName;
+                card.querySelectorAll('.slot-row[data-start]').forEach(function (row) {
+                    var s = toMin(row.dataset.start);
+                    var e = toMin(row.dataset.end);
+                    if (now >= s && now < e) {
+                        row.classList.add('slot-row--current');
+                        row.id = 'current-slot-' + key;
+                        var timeSpan = row.querySelector('.slot-time');
+                        if (timeSpan) {
+                            var badge = document.createElement('span');
+                            badge.className = 'now-badge';
+                            badge.textContent = 'TERAZ';
+                            timeSpan.insertAdjacentElement('afterend', badge);
+                        }
+                        currentSlots.push({ key: key, name: name,
+                            start: row.dataset.start, end: row.dataset.end,
+                            free: +row.dataset.free, total: +row.dataset.total,
+                            css: row.dataset.css });
+                    } else if (now >= e) {
+                        row.classList.add('slot-row--past');
+                    }
+                });
+            });
+        }
+
+        // Hero badges
+        document.querySelectorAll('[data-pool-key]').forEach(function (card) {
+            var hero = document.getElementById('hero-' + card.dataset.poolKey);
+            if (!hero) return;
+            var cur  = currentSlots.find(function (s) { return s.key === card.dataset.poolKey; });
+            if (cur) {
+                hero.textContent = cur.free + '/' + cur.total;
+                hero.className   = 'lane-badge lane-badge--hero ' + cur.css;
+                hero.hidden      = false;
+            } else {
+                hero.hidden = true;
+            }
+        });
+
+        // Summary card
+        var summaryEl = document.getElementById('summary-card');
+        var itemsEl   = document.getElementById('summary-items');
+        if (summaryEl && itemsEl) {
+            if (currentSlots.length === 0) {
+                summaryEl.hidden = true;
+            } else {
+                currentSlots.sort(function (a, b) { return b.free - a.free; });
+                itemsEl.innerHTML = currentSlots.map(function (s) {
+                    return '<div class="summary-item">' +
+                        '<span class="summary-item__name">' + s.name + '</span>' +
+                        '<span class="summary-item__slot">' + s.start + '–' + s.end + '</span>' +
+                        '<span class="lane-badge ' + s.css + '">' + s.free + '/' + s.total + '</span>' +
+                        '</div>';
+                }).join('');
+                summaryEl.hidden = false;
+            }
+        }
+
+        // Scroll to current slot
+        document.querySelectorAll('[id^="current-slot-"]').forEach(function (el) {
+            var container = el.closest('.slots-container');
+            if (!container) return;
+            var elRect = el.getBoundingClientRect();
+            var cRect  = container.getBoundingClientRect();
+            container.scrollTop += (elRect.top - cRect.top) - (container.clientHeight / 2) + (el.clientHeight / 2);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        updateAll();
+        tick();
+        setInterval(function () { updateAll(); tick(); }, 60000);
+    });
+}());
 </script>
 
 </body>
