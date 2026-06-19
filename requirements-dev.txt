@@ -1,0 +1,4 @@
+-r requirements.txt
+openpyxl>=3.1
+pytest>=8.0
+pytest-cov>=5.0
