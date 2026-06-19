@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, time as time_
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 import downloader
 import store
@@ -170,6 +170,33 @@ def index():
         days=DAYS,
         pools=pools,
     )
+
+
+@app.route("/api/health")
+def health():
+    pools_status = {}
+    any_missing = False
+    for key in POOL_INFO:
+        data = store.get_schedule(key)
+        last = store.get_last_fetch_entry(key)
+        has_data = data is not None
+        if not has_data:
+            any_missing = True
+        last_error = None
+        if last and not last["changed"] and last["note"] not in ("no change", "no url found", ""):
+            last_error = last["note"]
+        pools_status[key] = {
+            "status": "ok" if has_data else "no_data",
+            "slot_count": len(data["slots"]) if data else 0,
+            "last_refresh": data["schedule"]["fetched_at"] if data else None,
+            "last_checked": last["checked_at"] if last else None,
+            "last_error": last_error,
+        }
+    return jsonify({
+        "status": "degraded" if any_missing else "ok",
+        "time": datetime.now().isoformat(),
+        "pools": pools_status,
+    })
 
 
 @app.route("/refresh")
