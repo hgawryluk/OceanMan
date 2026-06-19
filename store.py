@@ -114,3 +114,14 @@ def get_last_checked(pool: str) -> str | None:
             (pool,),
         ).fetchone()
         return row[0] if row else None
+
+
+def get_last_fetch_entry(pool: str) -> dict | None:
+    """Return the most recent fetch_log row for the pool."""
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        row = con.execute(
+            "SELECT checked_at, changed, note FROM fetch_log WHERE pool = ? ORDER BY checked_at DESC LIMIT 1",
+            (pool,),
+        ).fetchone()
+        return dict(row) if row else None

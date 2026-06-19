@@ -141,7 +141,10 @@
                     <p class="empty-state">Brak danych dla wybranego dnia.</p>
 
                     {% else %}
-                    <p class="empty-state">Brak danych.</p>
+                    <div class="unavailable-state">
+                        <span class="material-symbols-rounded unavailable-state__icon">warning</span>
+                        <p class="unavailable-state__text">Harmonogram tymczasowo niedostępny</p>
+                    </div>
                     {% endif %}
                 </div>
 

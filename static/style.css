@@ -523,6 +523,25 @@ body {
     font-size: 0.85rem;
 }
 
+.unavailable-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2.5rem 1rem;
+    color: var(--c-muted);
+}
+
+.unavailable-state__icon {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.unavailable-state__text {
+    font-size: 0.85rem;
+    text-align: center;
+}
+
 .btn {
     display: inline-block;
     margin-top: 0.75rem;
