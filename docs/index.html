@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OceanMan — Tory pływackie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:linear-gradient(160deg,#060E1F 0%,#0A2545 40%,#0C3B4A 70%,#071A2E 100%) fixed;min-height:100vh;color:rgba(255,255,255,.95)}
+:root{
+  --glass-bg:rgba(255,255,255,.09);--glass-bg-s:rgba(255,255,255,.18);
+  --glass-b:rgba(255,255,255,.18);--glass-bs:rgba(255,255,255,.32);
+  --glass-sh:0 8px 32px rgba(0,0,0,.40);--glass-in:inset 0 1px 0 rgba(255,255,255,.12);
+  --c-muted:rgba(255,255,255,.52);--c-accent:#34D8F0;
+}
+/* app bar */
+.app-bar{position:sticky;top:0;z-index:100;backdrop-filter:blur(24px) saturate(180%);background:rgba(6,14,31,.55);border-bottom:1px solid var(--glass-b);padding:0 1rem}
+.app-bar__inner{max-width:1200px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between}
+.app-bar__brand{display:flex;align-items:center;gap:.625rem}
+.app-bar__logo{color:var(--c-accent);font-size:1.4rem}
+.app-bar__title{font-size:1.05rem;font-weight:700}
+.app-bar__subtitle{font-size:.69rem;color:var(--c-muted)}
+.app-bar__clock{text-align:right}.clock{font-size:.95rem;font-weight:600;display:block}
+.date{font-size:.69rem;color:var(--c-muted);display:block}
+/* day nav */
+.day-nav{position:sticky;top:60px;z-index:99;backdrop-filter:blur(20px) saturate(160%);background:rgba(6,14,31,.45);border-bottom:1px solid var(--glass-b);padding:.5rem 1rem}
+.day-nav__inner{max-width:1200px;margin:0 auto;display:flex;gap:.375rem;overflow-x:auto;scrollbar-width:none}
+.day-tab{border:none;background:transparent;color:var(--c-muted);font:500 .8rem Inter,sans-serif;padding:.35rem .7rem;border-radius:20px;cursor:pointer;white-space:nowrap;position:relative;transition:all .15s}
+.day-tab:hover{color:#fff;background:rgba(255,255,255,.08)}
+.day-tab.active{color:#fff;background:var(--glass-bg-s);border:1px solid var(--glass-bs);box-shadow:var(--glass-in);font-weight:600}
+.today-dot{width:4px;height:4px;background:var(--c-accent);border-radius:50%;position:absolute;bottom:3px;left:50%;transform:translateX(-50%)}
+/* container */
+main{padding:1.125rem 1rem 3rem}
+.container{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:1.125rem}
+/* legend */
+.legend{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem .75rem;padding:.6rem .875rem;background:var(--glass-bg);border:1px solid var(--glass-b);border-radius:14px;font-size:.72rem;color:var(--c-muted)}
+.legend__title{font-weight:600;color:rgba(255,255,255,.75)}
+.legend__chips{display:flex;flex-wrap:wrap;gap:.375rem .75rem}
+.legend-chip{display:flex;align-items:center;gap:.35rem}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* summary card */
+.summary-card{background:rgba(52,216,240,.08);border:1px solid rgba(52,216,240,.25);border-left:3px solid var(--c-accent);border-radius:16px;padding:.875rem 1rem;backdrop-filter:blur(20px)}
+.summary-card__header{display:flex;align-items:center;gap:.5rem;margin-bottom:.625rem}
+.summary-card__icon{color:var(--c-accent);font-size:1.1rem}
+.summary-card__title{font-size:.9rem;font-weight:700}
+.summary-card__items{display:flex;flex-direction:column;gap:.375rem}
+.summary-item{display:flex;align-items:center;gap:.5rem;font-size:.8rem}
+.summary-item__name{font-weight:600;min-width:80px}
+.summary-item__slot{color:var(--c-muted);font-size:.75rem;flex:1}
+/* pools grid */
+.pools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.125rem}
+@media(max-width:1100px){.pools-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.pools-grid{grid-template-columns:1fr}}
+/* pool card */
+.pool-card{background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-b);border-radius:20px;box-shadow:var(--glass-sh);overflow:hidden}
+.pool-card__header{padding:.875rem 1rem .5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.pool-card__name{font-size:.9375rem;font-weight:700}
+.pool-card__name-row{display:flex;align-items:center;gap:.5rem}
+.pool-card__address{display:flex;align-items:center;gap:.25rem;font-size:.69rem;color:var(--c-muted);margin-top:.2rem;overflow:hidden}
+.addr-icon{font-size:.9rem}
+.addr-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pool-card__meta{padding:.25rem 1rem .5rem;font-size:.67rem;color:var(--c-muted)}
+.maps-btn{display:flex;align-items:center;gap:.3rem;background:rgba(52,216,240,.12);border:1px solid rgba(52,216,240,.25);color:var(--c-accent);font:600 .72rem Inter,sans-serif;padding:.35rem .6rem;border-radius:10px;text-decoration:none;white-space:nowrap;flex-shrink:0}
+/* slots */
+.slots-container{max-height:380px;overflow-y:auto;padding:0 .875rem .875rem}
+.slots-list{display:flex;flex-direction:column;gap:1px}
+.hour-div{position:sticky;top:0;font-size:.67rem;font-weight:600;color:var(--c-muted);background:rgba(6,14,31,.7);backdrop-filter:blur(8px);padding:.2rem .25rem;margin:.4rem 0 .15rem;letter-spacing:.02em}
+.slot-row{display:flex;align-items:center;gap:.5rem;padding:.3rem .25rem;border-radius:8px;font-size:.82rem;transition:background .1s}
+.slot-row.current{background:rgba(251,191,36,.08);border-left:2px solid rgba(251,191,36,.6);padding-left:.5rem}
+.slot-row.past{opacity:.38}
+.slot-time{color:var(--c-muted);font-size:.75rem;min-width:40px;font-variant-numeric:tabular-nums}
+.slot-lanes{margin-left:auto;font-weight:800;font-size:1rem;font-variant-numeric:tabular-nums}
+.now-badge{font-size:.6rem;font-weight:700;background:rgba(251,191,36,.18);color:#FDE047;border:1px solid rgba(251,191,36,.35);padding:.1rem .35rem;border-radius:6px;letter-spacing:.04em}
+/* lane badge */
+.lane-badge{font-weight:800;font-size:1rem}
+.lane-badge.hero{font-size:.78rem;font-weight:700;padding:.15rem .45rem;border-radius:8px;border:1px solid;background:rgba(255,255,255,.08)}
+/* level colors */
+.lv-6,.level-6{color:#4ADE80}.lv-5,.level-5{color:#86EFAC}.lv-4,.level-4{color:#A3E635}
+.lv-3,.level-3{color:#FDE047}.lv-2,.level-2{color:#FB923C}.lv-1,.level-1{color:#F87171}.lv-0,.level-0{color:#EF4444}
+.hero.lv-6{border-color:#4ADE80}.hero.lv-5{border-color:#86EFAC}.hero.lv-4{border-color:#A3E635}
+.hero.lv-3{border-color:#FDE047}.hero.lv-2{border-color:#FB923C}.hero.lv-1{border-color:#F87171}.hero.lv-0{border-color:#EF4444}
+.dot.lv-6{background:#4ADE80}.dot.lv-5{background:#86EFAC}.dot.lv-4{background:#A3E635}
+.dot.lv-3{background:#FDE047}.dot.lv-2{background:#FB923C}.dot.lv-1{background:#F87171}.dot.lv-0{background:#EF4444}
+/* empty / error */
+.empty-state,.error-state{padding:2rem 1rem;text-align:center;color:var(--c-muted);font-size:.85rem}
+.error-state{color:#F87171}
+#loading{padding:4rem 1rem;text-align:center;color:var(--c-muted);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<header class="app-bar">
+  <div class="app-bar__inner">
+    <div class="app-bar__brand">
+      <span class="material-symbols-rounded app-bar__logo">pool</span>
+      <div>
+        <span class="app-bar__title">OceanMan</span>
+        <span class="app-bar__subtitle">Dostępność torów</span>
+      </div>
+    </div>
+    <div class="app-bar__clock">
+      <span class="clock" id="clock">--:--</span>
+      <span class="date" id="date-pl">…</span>
+    </div>
+  </div>
+</header>
+
+<nav class="day-nav">
+  <div class="day-nav__inner" id="day-tabs"></div>
+</nav>
+
+<main>
+  <div class="container" id="app">
+    <div id="loading">Ładowanie danych…</div>
+  </div>
+</main>
+
+<script>
+(function () {
+
+// ── constants ────────────────────────────────────────────────────────────────
+
+var POOL_INFO = {
+  delfin:    { name: 'Delfin',    address: 'ul. Kasprzaka 1/3, Warszawa', maps: 'https://maps.google.com/?q=Pływalnia+Delfin+Kasprzaka+Warszawa' },
+  foka:      { name: 'Foka',      address: 'ul. Esperanto 5, Warszawa',   maps: 'https://maps.google.com/?q=Pływalnia+Foka+Esperanto+Warszawa' },
+  inflancka: { name: 'Inflancka', address: 'ul. Inflancka 8, Warszawa',   maps: 'https://maps.google.com/?q=Ośrodek+Inflancka+Warszawa' },
+  potocka:   { name: 'Potocka',   address: 'ul. Potocka 1, Warszawa',     maps: 'https://maps.google.com/?q=Pływalnia+Potocka+Warszawa' },
+};
+var POOL_ORDER = ['delfin', 'foka', 'inflancka', 'potocka'];
+
+var DAYS = [
+  ['monday','Pon'],['tuesday','Wt'],['wednesday','Śr'],
+  ['thursday','Czw'],['friday','Pt'],['saturday','Sob'],['sunday','Niedz']
+];
+var DAY_INDEX = { sunday:0,monday:1,tuesday:2,wednesday:3,thursday:4,friday:5,saturday:6 };
+var PL_DAYS   = ['Pon','Wt','Śr','Czw','Pt','Sob','Niedz'];
+var PL_MONTHS = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
+
+var DATA_URL = 'data/availability.json';
+
+// ── helpers ──────────────────────────────────────────────────────────────────
+
+function todayKey() {
+  var d = new Date();
+  return ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][d.getDay()];
+}
+function nowMin() { var d = new Date(); return d.getHours()*60+d.getMinutes(); }
+function toMin(t) { var p=t.split(':'); return +p[0]*60+ +p[1]; }
+
+function laneClass(free, total) {
+  if (free === 0) return 'lv-0';
+  var r = free / total;
+  if (r <= 1/6) return 'lv-1';
+  if (r <= 2/6) return 'lv-2';
+  if (r <= 3/6) return 'lv-3';
+  if (r <= 4/6) return 'lv-4';
+  if (r <= 5/6) return 'lv-5';
+  return 'lv-6';
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── state ────────────────────────────────────────────────────────────────────
+
+var schedules = null;   // from availability.json
+var selectedDay = null;
+
+// ── clock + date ─────────────────────────────────────────────────────────────
+
+function tickClock() {
+  var d   = new Date();
+  var h   = String(d.getHours()).padStart(2,'0');
+  var m   = String(d.getMinutes()).padStart(2,'0');
+  var el  = document.getElementById('clock');
+  if (el) el.textContent = h + ':' + m;
+
+  var dateEl = document.getElementById('date-pl');
+  if (dateEl) {
+    var wi = d.getDay() === 0 ? 6 : d.getDay()-1; // Mon=0 index
+    dateEl.textContent = PL_DAYS[wi] + ', ' + d.getDate() + ' ' + PL_MONTHS[d.getMonth()];
+  }
+}
+
+// ── day tabs ─────────────────────────────────────────────────────────────────
+
+function renderTabs() {
+  var today = todayKey();
+  var html  = '';
+  DAYS.forEach(function(pair) {
+    var key   = pair[0], label = pair[1];
+    var active = key === selectedDay ? ' active' : '';
+    var dot    = key === today ? '<span class="today-dot"></span>' : '';
+    html += '<button class="day-tab' + active + '" data-day="' + key + '" type="button">'
+          + esc(label) + dot + '</button>';
+  });
+  document.getElementById('day-tabs').innerHTML = html;
+
+  document.querySelectorAll('.day-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      selectedDay = this.dataset.day;
+      renderTabs();
+      renderApp();
+    });
+  });
+}
+
+// ── main render ───────────────────────────────────────────────────────────────
+
+function renderApp() {
+  if (!schedules) return;
+
+  var today  = todayKey();
+  var isToday = selectedDay === today;
+  var now    = nowMin();
+
+  // collect current-slot data for summary card
+  var currentSlots = [];
+
+  // pool cards HTML
+  var cardsHtml = '';
+  POOL_ORDER.forEach(function(key) {
+    var info  = POOL_INFO[key];
+    var sched = schedules[key];
+    if (!sched) {
+      cardsHtml += poolCard(key, info, null, null, null);
+      return;
+    }
+
+    var daySlots = sched.slots
+      .filter(function(s) { return s.weekday === selectedDay; })
+      .sort(function(a,b) { return a.slot_start < b.slot_start ? -1 : 1; });
+
+    var currentSlot = null;
+    if (isToday) {
+      currentSlot = daySlots.find(function(s) {
+        return now >= toMin(s.slot_start) && now < toMin(s.slot_end);
+      }) || null;
+    }
+
+    if (currentSlot) {
+      currentSlots.push({
+        name:  info.name,
+        start: currentSlot.slot_start,
+        end:   currentSlot.slot_end,
+        free:  currentSlot.free_lanes,
+        total: currentSlot.total_lanes,
+        cls:   laneClass(currentSlot.free_lanes, currentSlot.total_lanes),
+      });
+    }
+
+    cardsHtml += poolCard(key, info, sched, daySlots, currentSlot, isToday, now);
+  });
+
+  // summary card
+  var summaryHtml = '';
+  if (currentSlots.length > 0) {
+    currentSlots.sort(function(a,b) { return b.free - a.free; });
+    var items = currentSlots.map(function(s) {
+      return '<div class="summary-item">'
+        + '<span class="summary-item__name">' + esc(s.name) + '</span>'
+        + '<span class="summary-item__slot">' + esc(s.start) + '–' + esc(s.end) + '</span>'
+        + '<span class="lane-badge ' + s.cls + '">' + s.free + '/' + s.total + '</span>'
+        + '</div>';
+    }).join('');
+    summaryHtml = '<section class="summary-card">'
+      + '<div class="summary-card__header">'
+      + '<span class="material-symbols-rounded summary-card__icon">water</span>'
+      + '<span class="summary-card__title">Teraz dostępne tory</span>'
+      + '</div>'
+      + '<div class="summary-card__items">' + items + '</div>'
+      + '</section>';
+  }
+
+  // legend
+  var legendHtml = '<div class="legend">'
+    + '<span class="legend__title">Legenda:</span>'
+    + '<div class="legend__chips">'
+    + '<span class="legend-chip"><span class="dot lv-6"></span>Swobodnie <span style="color:var(--c-muted);font-size:.68rem">5–6</span></span>'
+    + '<span class="legend-chip"><span class="dot lv-4"></span>Komfortowo <span style="color:var(--c-muted);font-size:.68rem">3–4</span></span>'
+    + '<span class="legend-chip"><span class="dot lv-2"></span>Tłoczno <span style="color:var(--c-muted);font-size:.68rem">1–2</span></span>'
+    + '<span class="legend-chip"><span class="dot lv-0"></span>Brak wolnych</span>'
+    + '</div></div>';
+
+  document.getElementById('app').innerHTML =
+    legendHtml + summaryHtml
+    + '<div class="pools-grid">' + cardsHtml + '</div>';
+
+  // scroll current slot into view
+  document.querySelectorAll('[id^="cur-"]').forEach(function(el) {
+    var c = el.closest('.slots-container');
+    if (!c) return;
+    c.scrollTop += el.getBoundingClientRect().top - c.getBoundingClientRect().top
+                   - c.clientHeight / 2 + el.clientHeight / 2;
+  });
+}
+
+function poolCard(key, info, sched, daySlots, currentSlot, isToday, now) {
+  var heroHtml = '';
+  if (currentSlot) {
+    var heroClass = laneClass(currentSlot.free_lanes, currentSlot.total_lanes);
+    heroHtml = '<span class="lane-badge hero ' + heroClass + '">'
+      + currentSlot.free_lanes + '/' + currentSlot.total_lanes + '</span>';
+  }
+
+  var metaHtml = '';
+  if (sched) {
+    metaHtml = '<div class="pool-card__meta">Zaktualizowano: '
+      + esc(sched.fetched_at.slice(0,16).replace('T',' ')) + '</div>';
+  }
+
+  var bodyHtml = '';
+  if (!sched) {
+    bodyHtml = '<div class="slots-container"><p class="error-state">'
+      + '<span class="material-symbols-rounded" style="display:block;font-size:1.8rem;opacity:.4;margin-bottom:.4rem">warning</span>'
+      + 'Harmonogram tymczasowo niedostępny</p></div>';
+  } else if (!daySlots || daySlots.length === 0) {
+    bodyHtml = '<div class="slots-container"><p class="empty-state">Brak danych dla wybranego dnia.</p></div>';
+  } else {
+    var rows = '';
+    var prevHour = '';
+    daySlots.forEach(function(s) {
+      var hour = s.slot_start.slice(0,2);
+      if (hour !== prevHour) {
+        rows += '<div class="hour-div">' + esc(hour) + ':00</div>';
+        prevHour = hour;
+      }
+      var isCur = isToday && now >= toMin(s.slot_start) && now < toMin(s.slot_end);
+      var isPast = isToday && now >= toMin(s.slot_end);
+      var cls = (isCur ? ' current' : '') + (isPast ? ' past' : '');
+      var idAttr = isCur ? ' id="cur-' + key + '"' : '';
+      var badge  = isCur ? '<span class="now-badge">TERAZ</span>' : '';
+      var lv = laneClass(s.free_lanes, s.total_lanes);
+      rows += '<div class="slot-row' + cls + '"' + idAttr + '>'
+        + '<span class="slot-time">' + esc(s.slot_start) + '</span>'
+        + badge
+        + '<span class="slot-lanes ' + lv + '">' + s.free_lanes + '/' + s.total_lanes + '</span>'
+        + '</div>';
+    });
+    bodyHtml = '<div class="slots-container"><div class="slots-list">' + rows + '</div></div>';
+  }
+
+  return '<section class="pool-card">'
+    + '<div class="pool-card__header">'
+    + '<div>'
+    + '<div class="pool-card__name-row">'
+    + '<h2 class="pool-card__name">' + esc(info.name) + '</h2>' + heroHtml
+    + '</div>'
+    + '<div class="pool-card__address">'
+    + '<span class="material-symbols-rounded addr-icon">location_on</span>'
+    + '<span class="addr-text">' + esc(info.address) + '</span>'
+    + '</div></div>'
+    + '<a href="' + esc(info.maps) + '" target="_blank" rel="noopener" class="maps-btn">'
+    + '<span class="material-symbols-rounded">map</span>Mapy</a>'
+    + '</div>'
+    + metaHtml
+    + bodyHtml
+    + '</section>';
+}
+
+// ── boot ──────────────────────────────────────────────────────────────────────
+
+tickClock();
+setInterval(function() { tickClock(); if (schedules) renderApp(); }, 60000);
+
+selectedDay = todayKey();
+renderTabs();
+
+fetch(DATA_URL)
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(json) {
+    schedules = json.schedules;
+    renderApp();
+  })
+  .catch(function(err) {
+    document.getElementById('app').innerHTML =
+      '<div class="error-state">'
+      + '<span class="material-symbols-rounded" style="font-size:2rem;display:block;margin-bottom:.5rem">error</span>'
+      + 'Nie można załadować danych.<br><small style="opacity:.6">Uruchom przez serwer HTTP (nie przez file://).</small>'
+      + '</div>';
+    console.error('Failed to load availability.json:', err);
+  });
+
+}());
+</script>
+</body>
+</html>
