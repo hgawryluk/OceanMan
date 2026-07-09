@@ -347,7 +347,11 @@ body {
     align-items: flex-start;
     justify-content: space-between;
     gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
 }
+.pool-card__header:hover .pool-card__chevron { color: var(--c-text); }
 
 .pool-card__info { flex: 1; min-width: 0; }
 
@@ -365,6 +369,17 @@ body {
     color: var(--c-text);
     letter-spacing: -0.01em;
 }
+
+.pool-card__chevron {
+    font-size: 18px !important;
+    color: var(--c-muted);
+    transition: transform 0.2s ease, color 0.15s;
+    flex-shrink: 0;
+}
+.pool-card--collapsed .pool-card__chevron { transform: rotate(-90deg); }
+
+.pool-card--collapsed .slots-container,
+.pool-card--collapsed .pool-card__meta { display: none; }
 
 .pool-card__address {
     display: flex;

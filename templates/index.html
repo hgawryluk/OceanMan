@@ -122,7 +122,7 @@
             {% for pool in pools %}
             <section class="pool-card" data-pool-key="{{ pool.key }}" data-pool-name="{{ pool.name }}">
 
-                <div class="pool-card__header">
+                <div class="pool-card__header" role="button" aria-expanded="true" aria-controls="slots-{{ pool.key }}">
                     <div class="pool-card__info">
                         <div class="pool-card__name-row">
                             <h2 class="pool-card__name">{{ pool.name }}</h2>
@@ -131,6 +131,7 @@
                                   {% if not pool.current_slot %}hidden{% endif %}>
                                 {%- if pool.current_slot %}{{ pool.current_slot.free_lanes }}/{{ pool.current_slot.total_lanes }}{% endif -%}
                             </span>
+                            <span class="material-symbols-rounded pool-card__chevron">expand_more</span>
                         </div>
                         <div class="pool-card__address">
                             <span class="material-symbols-rounded pool-card__addr-icon">location_on</span>
@@ -149,7 +150,7 @@
                 </div>
                 {% endif %}
 
-                <div class="slots-container">
+                <div class="slots-container" id="slots-{{ pool.key }}">
                     {% if pool.slots %}
                     <div class="slots-list">
                         {% set ns = namespace(prev_hour='') %}
@@ -307,9 +308,47 @@
         });
     }
 
+    // ── Collapse / expand pool cards ──────────────────────────────────────
+    var COLLAPSE_KEY = 'oceanman-collapsed';
+
+    function getCollapsed() {
+        try { return JSON.parse(sessionStorage.getItem(COLLAPSE_KEY) || '[]'); } catch(e) { return []; }
+    }
+    function saveCollapsed(list) {
+        try { sessionStorage.setItem(COLLAPSE_KEY, JSON.stringify(list)); } catch(e) {}
+    }
+
+    function setCardCollapsed(card, collapsed) {
+        var header = card.querySelector('.pool-card__header');
+        card.classList.toggle('pool-card--collapsed', collapsed);
+        if (header) header.setAttribute('aria-expanded', String(!collapsed));
+    }
+
+    function initCollapse() {
+        var collapsed = getCollapsed();
+        document.querySelectorAll('[data-pool-key]').forEach(function(card) {
+            var key = card.dataset.poolKey;
+            setCardCollapsed(card, collapsed.indexOf(key) !== -1);
+
+            var header = card.querySelector('.pool-card__header');
+            if (!header) return;
+            header.addEventListener('click', function(e) {
+                if (e.target.closest('.maps-btn')) return;
+                var isNowCollapsed = !card.classList.contains('pool-card--collapsed');
+                setCardCollapsed(card, isNowCollapsed);
+                var list = getCollapsed();
+                var idx = list.indexOf(key);
+                if (isNowCollapsed && idx === -1) list.push(key);
+                if (!isNowCollapsed && idx !== -1) list.splice(idx, 1);
+                saveCollapsed(list);
+            });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         updateAll();
         tick();
+        initCollapse();
         setInterval(function () { updateAll(); tick(); }, 60000);
     });
 }());
