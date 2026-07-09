@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgłoś pływalnię — OceanMan</title>
+    <meta name="description" content="Zaproponuj nową pływalnię do dodania w OceanMan.">
+    <meta name="theme-color" content="#0A2545">
+    <meta name="robots" content="noindex">
+
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="app-bar">
+    <div class="app-bar__inner">
+        <div class="app-bar__brand">
+            <span class="material-symbols-rounded app-bar__logo">pool</span>
+            <div class="app-bar__brand-text">
+                <span class="app-bar__title">OceanMan</span>
+                <span class="app-bar__subtitle">Dostępność torów</span>
+            </div>
+        </div>
+        <a href="/about" class="maps-btn">
+            <span class="material-symbols-rounded">arrow_back</span>
+            O projekcie
+        </a>
+    </div>
+</header>
+
+<main>
+    <div class="suggest-container">
+
+        <section class="about-hero">
+            <span class="material-symbols-rounded about-hero__icon">add_location</span>
+            <h1 class="about-hero__title">Zgłoś pływalnię</h1>
+            <p class="about-hero__lead">Brakuje Twojej ulubionej pływalni? Wypełnij formularz — sprawdzimy czy możemy dodać ją do OceanMan.</p>
+        </section>
+
+        {% if formspree_id %}
+        <div class="suggest-card">
+            <form id="suggest-form" action="https://formspree.io/f/{{ formspree_id }}" method="POST" novalidate>
+
+                <div class="form-group">
+                    <label class="form-label" for="pool_name">
+                        Nazwa pływalni <span class="form-required">*</span>
+                    </label>
+                    <input class="form-input" type="text" id="pool_name" name="pool_name"
+                           placeholder="np. Pływalnia Moczydło" required maxlength="120">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="city">
+                        Miasto <span class="form-required">*</span>
+                    </label>
+                    <input class="form-input" type="text" id="city" name="city"
+                           placeholder="np. Warszawa" required maxlength="80">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="url">
+                        Link do pływalni lub harmonogramu <span class="form-optional">(opcjonalnie)</span>
+                    </label>
+                    <input class="form-input" type="url" id="url" name="url"
+                           placeholder="https://...">
+                    <p class="form-hint">Strona pływalni albo bezpośredni link do PDF / Excel z harmonogramem — cokolwiek masz.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="notes">Dodatkowe informacje</label>
+                    <textarea class="form-input form-textarea" id="notes" name="notes"
+                              placeholder="Cokolwiek co może pomóc: format pliku, dostępność danych, uwagi..." maxlength="600"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reply_email">Twój e-mail <span class="form-optional">(opcjonalnie)</span></label>
+                    <input class="form-input" type="email" id="reply_email" name="reply_email"
+                           placeholder="Jeśli chcesz otrzymać odpowiedź">
+                </div>
+
+                <div id="form-status" class="form-status" hidden></div>
+
+                <button class="form-submit" type="submit">
+                    <span class="material-symbols-rounded">send</span>
+                    Wyślij zgłoszenie
+                </button>
+
+            </form>
+        </div>
+
+        {% else %}
+        <div class="suggest-card suggest-card--unconfigured">
+            <span class="material-symbols-rounded" style="font-size:2rem;color:var(--c-accent);opacity:.6">construction</span>
+            <p>Formularz zgłoszeń jest w przygotowaniu. Wróć wkrótce!</p>
+        </div>
+        {% endif %}
+
+        <p class="suggest-alt">
+            Możesz też zgłosić pływalnię bezpośrednio przez
+            <a href="https://github.com/hgawryluk/OceanMan/issues/new?labels=new-pool&title=Nowa+pływalnia%3A+" target="_blank" rel="noopener" class="about-link">GitHub Issues</a>.
+        </p>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__name">OceanMan</span>
+            <span class="site-footer__desc">Dostępność torów pływackich</span>
+        </div>
+        <div class="site-footer__meta">
+            <a href="https://github.com/hgawryluk/OceanMan" target="_blank" rel="noopener" class="site-footer__link">GitHub</a>
+            <a href="/suggest" class="site-footer__link">Zgłoś pływalnię</a>
+            <span class="site-footer__version">v{{ version }}</span>
+        </div>
+    </div>
+</footer>
+
+{% if formspree_id %}
+<script>
+(function () {
+    var form   = document.getElementById('suggest-form');
+    var status = document.getElementById('form-status');
+    var btn    = form.querySelector('.form-submit');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Wysyłanie…';
+        status.hidden = true;
+
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(function (resp) {
+            if (resp.ok) {
+                form.reset();
+                showStatus('success', 'Dziękujemy! Zgłoszenie zostało wysłane.');
+            } else {
+                resp.json().then(function (data) {
+                    showStatus('error', data.errors ? data.errors.map(function(e){return e.message;}).join(', ') : 'Wystąpił błąd. Spróbuj ponownie.');
+                });
+            }
+        })
+        .catch(function () {
+            showStatus('error', 'Brak połączenia. Sprawdź internet i spróbuj ponownie.');
+        })
+        .finally(function () {
+            btn.disabled = false;
+            btn.innerHTML = '<span class="material-symbols-rounded">send</span> Wyślij zgłoszenie';
+        });
+    });
+
+    function showStatus(type, msg) {
+        status.textContent = msg;
+        status.className = 'form-status form-status--' + type;
+        status.hidden = false;
+    }
+}());
+</script>
+{% endif %}
+
+</body>
+</html>

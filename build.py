@@ -17,7 +17,7 @@ from datetime import datetime
 from pathlib import Path
 
 import store
-from app import app, POOL_MODULES, VERSION, SITE_URL, _refresh_pool
+from app import app, POOL_MODULES, VERSION, SITE_URL, FORMSPREE_ID, _refresh_pool
 from models import PoolSchedule, SlotReading
 
 WEEKDAYS = [
@@ -109,8 +109,17 @@ def build(run_parsers: bool = False, from_json: bool = False) -> None:
     resp = client.get("/about")
     html_about = _rewrite(resp.data.decode("utf-8"), today)
     html_about = html_about.replace('href="/about"', 'href="about.html"')
+    html_about = html_about.replace('href="/suggest"', 'href="suggest.html"')
     (dist / "about.html").write_text(html_about, encoding="utf-8")
     print("  about.html")
+
+    # Render suggest page
+    resp = client.get("/suggest")
+    html_suggest = _rewrite(resp.data.decode("utf-8"), today)
+    html_suggest = html_suggest.replace('href="/about"', 'href="about.html"')
+    html_suggest = html_suggest.replace('href="/suggest"', 'href="suggest.html"')
+    (dist / "suggest.html").write_text(html_suggest, encoding="utf-8")
+    print("  suggest.html")
 
     # Rewrite about link in all day pages
     day_files = list(dist.glob("*.html"))

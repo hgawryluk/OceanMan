@@ -14,8 +14,9 @@ from pools import potocka as potocka_pool
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-VERSION  = "1.0.0"
-SITE_URL = "https://hgawryluk.github.io/OceanMan"
+VERSION       = "1.0.0"
+SITE_URL      = "https://hgawryluk.github.io/OceanMan"
+FORMSPREE_ID  = ""  # set to your Formspree form ID, e.g. "xyzabcde"
 
 app = Flask(__name__)
 scheduler: BackgroundScheduler | None = None
@@ -215,6 +216,11 @@ def health():
 def manual_refresh():
     refresh_all()
     return redirect(url_for("index"))
+
+
+@app.route("/suggest")
+def suggest():
+    return render_template("suggest.html", version=VERSION, site_url=SITE_URL, formspree_id=FORMSPREE_ID)
 
 
 @app.route("/about")

@@ -591,6 +591,133 @@ body {
 .btn:hover { background: var(--glass-bg); }
 
 /* ═══════════════════════════════════════
+   SUGGEST PAGE
+═══════════════════════════════════════ */
+.suggest-container {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.suggest-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-radius: var(--r-card);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow), var(--glass-inset);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.suggest-card--unconfigured {
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    color: var(--c-muted);
+    font-size: 0.875rem;
+    padding: 3rem 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--c-text);
+}
+
+.form-required { color: var(--c-accent); }
+.form-optional { font-size: 0.75rem; font-weight: 400; color: var(--c-muted); }
+
+.form-hint {
+    font-size: 0.72rem;
+    color: var(--c-muted);
+    line-height: 1.5;
+    margin-top: 0.1rem;
+}
+
+.form-input {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-sm);
+    color: var(--c-text);
+    font-family: inherit;
+    font-size: 0.875rem;
+    padding: 0.6rem 0.875rem;
+    transition: border-color .15s, background .15s;
+    outline: none;
+    width: 100%;
+}
+.form-input::placeholder { color: var(--c-faint); }
+.form-input:focus {
+    border-color: rgba(52, 216, 240, 0.50);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.form-status {
+    padding: 0.65rem 0.875rem;
+    border-radius: var(--r-sm);
+    font-size: 0.825rem;
+    line-height: 1.5;
+}
+.form-status--success {
+    background: rgba(74, 222, 128, 0.12);
+    border: 1px solid rgba(74, 222, 128, 0.28);
+    color: #86EFAC;
+}
+.form-status--error {
+    background: rgba(248, 113, 113, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.28);
+    color: #FCA5A5;
+}
+
+.form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--r-pill);
+    background: rgba(52, 216, 240, 0.14);
+    border: 1px solid rgba(52, 216, 240, 0.35);
+    color: var(--c-accent);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    align-self: flex-start;
+}
+.form-submit:hover:not(:disabled) {
+    background: rgba(52, 216, 240, 0.22);
+    border-color: rgba(52, 216, 240, 0.55);
+}
+.form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.form-submit .material-symbols-rounded { font-size: 16px !important; }
+
+.suggest-alt {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--c-muted);
+}
+
+/* ═══════════════════════════════════════
    ABOUT PAGE
 ═══════════════════════════════════════ */
 .about-container {
@@ -818,6 +945,22 @@ body {
 .about-roadmap__item--done { color: var(--c-text); }
 .about-roadmap__item--done .material-symbols-rounded { color: var(--lv-6); }
 .about-roadmap__item:not(.about-roadmap__item--done) .material-symbols-rounded { color: var(--c-faint); }
+
+/* Suggest CTA */
+.about-suggest {
+    background: rgba(52, 216, 240, 0.05);
+    border: 1px solid rgba(52, 216, 240, 0.18);
+    border-radius: var(--r-card);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.about-suggest__icon { font-size: 1.75rem !important; color: var(--c-accent); flex-shrink: 0; opacity: 0.8; }
+.about-suggest__text { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; min-width: 200px; }
+.about-suggest__text strong { font-size: 0.9375rem; color: var(--c-text); }
+.about-suggest__text span   { font-size: 0.8rem;    color: var(--c-muted); }
 
 /* GitHub CTA */
 .about-github {
