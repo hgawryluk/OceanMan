@@ -94,6 +94,9 @@ def build(run_parsers: bool = False, from_json: bool = False) -> None:
         html = html.replace('href="/static/', 'href="static/')
         html = html.replace('src="/static/', 'src="static/')
         html = html.replace('href="/manifest.webmanifest"', 'href="manifest.webmanifest"')
+        html = html.replace('href="/about"', 'href="about.html"')
+        html = html.replace('href="/suggest"', 'href="suggest.html"')
+        html = html.replace('href="/"', 'href="index.html"')
         return html
 
     print("Rendering pages…")
