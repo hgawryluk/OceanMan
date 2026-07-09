@@ -114,14 +114,26 @@ body {
 }
 
 .app-bar__nav-link {
-    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--r-pill);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--c-muted);
+    font-size: 0.78rem;
     font-weight: 500;
-    color: var(--c-accent);
     text-decoration: none;
-    transition: opacity .15s;
     white-space: nowrap;
+    transition: background .15s, border-color .15s, color .15s;
 }
-.app-bar__nav-link:hover { opacity: 0.72; }
+.app-bar__nav-link:hover {
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border-strong);
+    color: var(--c-text);
+}
 
 .app-bar__clock { text-align: right; }
 .clock {
