@@ -10,6 +10,7 @@ Output: dist/index.html (today) + dist/<weekday>.html (other 6 days)
         dist/static/ (CSS + favicon copy with corrected paths)
         dist/manifest.webmanifest, robots.txt, sitemap.xml, 404.html
 """
+import json
 import shutil
 import sys
 from datetime import datetime
@@ -17,6 +18,7 @@ from pathlib import Path
 
 import store
 from app import app, POOL_MODULES, VERSION, SITE_URL, _refresh_pool
+from models import PoolSchedule, SlotReading
 
 WEEKDAYS = [
     "monday", "tuesday", "wednesday", "thursday",
@@ -28,10 +30,44 @@ def _today() -> str:
     return datetime.now().strftime("%A").lower()
 
 
-def build(run_parsers: bool = False) -> None:
+def _load_from_json() -> None:
+    """Populate SQLite from docs/data/availability.json (used in CI where pool sites are blocked)."""
+    json_path = Path("docs/data/availability.json")
+    if not json_path.exists():
+        print("WARNING: docs/data/availability.json not found — no data to load.")
+        return
+    data = json.loads(json_path.read_text(encoding="utf-8"))
+    for key, pool_data in data.get("schedules", {}).items():
+        slots = [
+            SlotReading(
+                pool=key,
+                weekday=s["weekday"],
+                slot_start=s["slot_start"],
+                slot_end=s["slot_end"],
+                free_lanes=s["free_lanes"],
+                total_lanes=s["total_lanes"],
+            )
+            for s in pool_data["slots"]
+        ]
+        schedule = PoolSchedule(
+            pool=key,
+            valid_from=None,
+            fetched_at=datetime.fromisoformat(pool_data["fetched_at"]),
+            source_url=pool_data["source_url"],
+            source_hash=f"json-{pool_data['fetched_at']}",
+            slots=slots,
+        )
+        store.upsert_schedule(schedule)
+        print(f"  Loaded {key}: {len(slots)} slots from JSON")
+
+
+def build(run_parsers: bool = False, from_json: bool = False) -> None:
     store.init_db()
 
-    if run_parsers:
+    if from_json:
+        print("Loading data from docs/data/availability.json…")
+        _load_from_json()
+    elif run_parsers:
         print("Running parsers…")
         for key, module in POOL_MODULES.items():
             _refresh_pool(key, module)
@@ -98,4 +134,7 @@ def build(run_parsers: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    build(run_parsers="--refresh" in sys.argv)
+    build(
+        run_parsers="--refresh" in sys.argv,
+        from_json="--from-json" in sys.argv,
+    )

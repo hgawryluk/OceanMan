@@ -31,8 +31,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build static site (parsers + render)
-        run: python build.py --refresh
+      - name: Build static site from committed JSON
+        run: python build.py --from-json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
