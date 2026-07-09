@@ -1,8 +1,8 @@
 name: Build & Deploy to GitHub Pages
 
 on:
-  schedule:
-    - cron: '0 6 * * *'   # 06:00 UTC daily (08:00 Warsaw summer / 07:00 winter)
+  push:
+    branches: [master]
   workflow_dispatch:        # manual trigger from GitHub UI
 
 permissions:
