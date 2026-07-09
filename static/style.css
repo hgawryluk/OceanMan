@@ -605,12 +605,37 @@ body {
    SUGGEST PAGE
 ═══════════════════════════════════════ */
 .suggest-container {
-    max-width: 560px;
+    max-width: 520px;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 1.5rem 1.25rem 4rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+}
+
+.suggest-hero {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+.suggest-hero__icon {
+    font-size: 2rem !important;
+    color: var(--c-accent);
+    opacity: 0.75;
+    flex-shrink: 0;
+}
+.suggest-hero__title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--c-text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+}
+.suggest-hero__lead {
+    font-size: 0.82rem;
+    color: var(--c-muted);
+    line-height: 1.5;
 }
 
 .suggest-card {
@@ -620,10 +645,10 @@ body {
     border-radius: var(--r-card);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow), var(--glass-inset);
-    padding: 1.75rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .suggest-card--unconfigured {
@@ -648,7 +673,7 @@ body {
 }
 
 .form-required { color: var(--c-accent); }
-.form-optional { font-size: 0.75rem; font-weight: 400; color: var(--c-muted); }
+.form-optional { font-size: 0.72rem; font-weight: 400; color: var(--c-faint); }
 
 .form-hint {
     font-size: 0.72rem;

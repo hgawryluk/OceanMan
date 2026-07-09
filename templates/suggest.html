@@ -38,10 +38,12 @@
 <main>
     <div class="suggest-container">
 
-        <section class="about-hero">
-            <span class="material-symbols-rounded about-hero__icon">add_location</span>
-            <h1 class="about-hero__title">Zgłoś pływalnię</h1>
-            <p class="about-hero__lead">Brakuje Twojej ulubionej pływalni? Wypełnij formularz — sprawdzimy czy możemy dodać ją do OceanMan.</p>
+        <section class="suggest-hero">
+            <span class="material-symbols-rounded suggest-hero__icon">add_location</span>
+            <div>
+                <h1 class="suggest-hero__title">Zgłoś pływalnię</h1>
+                <p class="suggest-hero__lead">Brakuje Twojej ulubionej pływalni? Wypełnij formularz — sprawdzimy czy możemy ją dodać.</p>
+            </div>
         </section>
 
         {% if formspree_id %}
@@ -65,22 +67,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="url">
-                        Link do pływalni lub harmonogramu <span class="form-optional">(opcjonalnie)</span>
-                    </label>
+                    <label class="form-label" for="url">Link <span class="form-optional">opcjonalnie</span></label>
                     <input class="form-input" type="url" id="url" name="url"
-                           placeholder="https://...">
-                    <p class="form-hint">Strona pływalni albo bezpośredni link do PDF / Excel z harmonogramem — cokolwiek masz.</p>
+                           placeholder="Strona pływalni albo link do harmonogramu (PDF, Excel…)">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="notes">Dodatkowe informacje</label>
+                    <label class="form-label" for="notes">Uwagi <span class="form-optional">opcjonalnie</span></label>
                     <textarea class="form-input form-textarea" id="notes" name="notes"
-                              placeholder="Cokolwiek co może pomóc: format pliku, dostępność danych, uwagi..." maxlength="600"></textarea>
+                              placeholder="Format pliku, dostępność danych, cokolwiek co może pomóc…" maxlength="600"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="reply_email">Twój e-mail <span class="form-optional">(opcjonalnie)</span></label>
+                    <label class="form-label" for="reply_email">Twój e-mail <span class="form-optional">opcjonalnie</span></label>
                     <input class="form-input" type="email" id="reply_email" name="reply_email"
                            placeholder="Jeśli chcesz otrzymać odpowiedź">
                 </div>
@@ -103,8 +102,7 @@
         {% endif %}
 
         <p class="suggest-alt">
-            Możesz też zgłosić pływalnię bezpośrednio przez
-            <a href="https://github.com/hgawryluk/OceanMan/issues/new?labels=new-pool&title=Nowa+pływalnia%3A+" target="_blank" rel="noopener" class="about-link">GitHub Issues</a>.
+            Możesz też otworzyć <a href="https://github.com/hgawryluk/OceanMan/issues/new?labels=new-pool&title=Nowa+pływalnia%3A+" target="_blank" rel="noopener" class="about-link">GitHub Issue</a> bezpośrednio.
         </p>
 
     </div>
