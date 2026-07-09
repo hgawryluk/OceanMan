@@ -620,7 +620,8 @@ body {
     padding: 0.5rem 0;
 }
 .suggest-hero__icon {
-    font-size: 2rem !important;
+    width: 2rem;
+    height: 2rem;
     color: var(--c-accent);
     opacity: 0.75;
     flex-shrink: 0;
@@ -729,7 +730,7 @@ body {
     justify-content: center;
     gap: 0.4rem;
     padding: 0.7rem 1.5rem;
-    margin-top: 0.5rem;
+    margin-top: 1.25rem;
     border-radius: var(--r-pill);
     background: rgba(52, 216, 240, 0.14);
     border: 1px solid rgba(52, 216, 240, 0.35);
