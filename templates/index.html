@@ -3,7 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OceanMan — Tory pływackie</title>
+    <title>OceanMan — Dostępność torów pływackich</title>
+    <meta name="description" content="Sprawdź dostępność torów pływackich — Delfin, Foka, Inflancka, Potocka.">
+    <meta name="theme-color" content="#0A2545">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="OceanMan">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OceanMan">
+    <meta property="og:title" content="OceanMan — Dostępność torów pływackich">
+    <meta property="og:description" content="Sprawdź dostępność torów pływackich — Delfin, Foka, Inflancka, Potocka.">
+    <meta property="og:url" content="{{ site_url }}/">
+    <meta property="og:locale" content="pl_PL">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="OceanMan — Dostępność torów pływackich">
+    <meta name="twitter:description" content="Sprawdź dostępność torów pływackich — Delfin, Foka, Inflancka, Potocka.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ site_url }}/">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,9 +49,12 @@
                 <span class="app-bar__subtitle">Dostępność torów</span>
             </div>
         </div>
-        <div class="app-bar__clock">
-            <span class="clock" id="clock">{{ now.strftime('%H:%M') }}</span>
-            <span class="date">{{ now_date_pl }}</span>
+        <div class="app-bar__right">
+            <a href="/about" class="app-bar__about-link">O projekcie</a>
+            <div class="app-bar__clock">
+                <span class="clock" id="clock">{{ now.strftime('%H:%M') }}</span>
+                <span class="date">{{ now_date_pl }}</span>
+            </div>
         </div>
     </div>
 </header>
@@ -159,6 +190,21 @@
 
     </div>
 </main>
+
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__name">OceanMan</span>
+            <span class="site-footer__desc">Dostępność torów pływackich</span>
+        </div>
+        <div class="site-footer__meta">
+            {% if last_updated %}<span class="site-footer__updated">Dane z {{ last_updated }}</span>{% endif %}
+            <a href="https://github.com/hgawryluk/OceanMan" target="_blank" rel="noopener" class="site-footer__link">GitHub</a>
+            <a href="https://github.com/hgawryluk/OceanMan/issues/new?labels=bug" target="_blank" rel="noopener" class="site-footer__link">Zgłoś problem</a>
+            <span class="site-footer__version">v{{ version }}</span>
+        </div>
+    </div>
+</footer>
 
 <script>
 (function () {

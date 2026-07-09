@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, time as time_
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, send_from_directory, url_for
 
 import downloader
 import store
@@ -13,6 +13,9 @@ from pools import potocka as potocka_pool
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
+
+VERSION  = "1.0.0"
+SITE_URL = "https://hgawryluk.github.io/OceanMan"
 
 app = Flask(__name__)
 scheduler: BackgroundScheduler | None = None
@@ -161,6 +164,12 @@ def index():
 
     now_date_pl = f"{_DAY_LABELS[today]}, {now.day} {PL_MONTHS[now.month - 1]}"
 
+    fetch_times = [p["data"]["schedule"]["fetched_at"] for p in pools if p["data"]]
+    last_updated = None
+    if fetch_times:
+        dt = datetime.fromisoformat(max(fetch_times))
+        last_updated = f"{dt.day} {PL_MONTHS[dt.month - 1]} {dt.year}"
+
     return render_template(
         "index.html",
         now=now,
@@ -169,6 +178,9 @@ def index():
         selected_day=selected_day,
         days=DAYS,
         pools=pools,
+        version=VERSION,
+        site_url=SITE_URL,
+        last_updated=last_updated,
     )
 
 
@@ -203,6 +215,35 @@ def health():
 def manual_refresh():
     refresh_all()
     return redirect(url_for("index"))
+
+
+@app.route("/about")
+def about():
+    pools = [
+        {**info, "key": key, "total_lanes": {"delfin": 6, "foka": 6, "inflancka": 10, "potocka": 8}[key]}
+        for key, info in POOL_INFO.items()
+    ]
+    return render_template("about.html", pools=pools, version=VERSION, site_url=SITE_URL)
+
+
+@app.route("/manifest.webmanifest")
+def manifest():
+    return send_from_directory("public", "manifest.webmanifest", mimetype="application/manifest+json")
+
+
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory("public", "robots.txt", mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    return send_from_directory("public", "sitemap.xml", mimetype="application/xml")
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html", version=VERSION, site_url=SITE_URL, home_url="/"), 404
 
 
 # ---------------------------------------------------------------------------

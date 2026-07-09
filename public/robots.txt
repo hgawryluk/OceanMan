@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hgawryluk.github.io/OceanMan/sitemap.xml

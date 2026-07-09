@@ -1,0 +1,18 @@
+{
+  "name": "OceanMan",
+  "short_name": "OceanMan",
+  "description": "Dostępność torów pływackich",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#060E1F",
+  "theme_color": "#0A2545",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "static/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

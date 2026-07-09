@@ -1,6 +1,6 @@
 # OceanMan
 
-Prywatna aplikacja webowa do śledzenia wolnych torów w warszawskich pływalniach publicznych. Zamiast sprawdzać cztery strony OSiR — jeden rzut oka i wiesz, gdzie warto pojechać.
+Aplikacja webowa do sprawdzania dostępności torów pływackich. Zamiast sprawdzać osobne strony z harmonogramami — jeden rzut oka i wiesz, gdzie warto pojechać.
 
 ## Obsługiwane pływalnie
 

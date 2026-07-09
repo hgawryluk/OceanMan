@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O projekcie — OceanMan</title>
+    <meta name="description" content="OceanMan — projekt open-source do sprawdzania dostępności torów pływackich.">
+    <meta name="theme-color" content="#0A2545">
+
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OceanMan">
+    <meta property="og:title" content="O projekcie — OceanMan">
+    <meta property="og:description" content="OceanMan — projekt open-source do sprawdzania dostępności torów pływackich.">
+    <meta property="og:url" content="{{ site_url }}/about">
+    <meta property="og:locale" content="pl_PL">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="app-bar">
+    <div class="app-bar__inner">
+        <div class="app-bar__brand">
+            <span class="material-symbols-rounded app-bar__logo">pool</span>
+            <div class="app-bar__brand-text">
+                <span class="app-bar__title">OceanMan</span>
+                <span class="app-bar__subtitle">Dostępność torów</span>
+            </div>
+        </div>
+        <a href="/" class="maps-btn">
+            <span class="material-symbols-rounded">arrow_back</span>
+            Harmonogram
+        </a>
+    </div>
+</header>
+
+<main>
+    <div class="about-container">
+
+        <section class="about-hero">
+            <span class="material-symbols-rounded about-hero__icon">waves</span>
+            <h1 class="about-hero__title">O projekcie</h1>
+            <p class="about-hero__lead">OceanMan to darmowa aplikacja open-source, która agreguje harmonogramy rezerwacji torów z pływalni i pokazuje je w jednym, czytelnym widoku.</p>
+        </section>
+
+        <div class="about-grid">
+
+            <section class="about-card">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">help</span>
+                </div>
+                <h2 class="about-card__title">Dlaczego OceanMan?</h2>
+                <p class="about-card__text">Pływalnie publikują harmonogramy rezerwacji torów w różnych formatach — zazwyczaj PDF lub Excel. Sprawdzenie dostępności w kilku miejscach naraz jest powolne i uciążliwe.</p>
+                <p class="about-card__text">OceanMan automatycznie pobiera i parsuje te pliki, a następnie prezentuje dane w jednym miejscu. Zamiast otwierać osobne dokumenty — otwierasz jedną stronę.</p>
+            </section>
+
+            <section class="about-card">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">pool</span>
+                </div>
+                <h2 class="about-card__title">Obsługiwane pływalnie</h2>
+                <ul class="about-pool-list">
+                    {% for pool in pools %}
+                    <li class="about-pool-item">
+                        <div class="about-pool-item__info">
+                            <span class="about-pool-item__name">{{ pool.name }}</span>
+                            <span class="about-pool-item__addr">{{ pool.address }}</span>
+                        </div>
+                        <div class="about-pool-item__meta">
+                            <span class="about-pool-item__lanes">{{ pool.total_lanes }} tor{{ 'ów' if pool.total_lanes >= 5 else ('y' if pool.total_lanes >= 2 else '') }}</span>
+                            <a href="{{ pool.maps_url }}" target="_blank" rel="noopener" class="maps-btn maps-btn--sm">
+                                <span class="material-symbols-rounded">map</span>
+                                Mapy
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="about-card">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">download</span>
+                </div>
+                <h2 class="about-card__title">Jak zbierane są dane?</h2>
+                <div class="about-steps">
+                    <div class="about-step">
+                        <span class="about-step__num">1</span>
+                        <div>
+                            <strong>Pobieranie</strong>
+                            <p>GitHub Actions codziennie pobiera harmonogramy ze stron pływalni w formacie PDF lub XLSX.</p>
+                        </div>
+                    </div>
+                    <div class="about-step">
+                        <span class="about-step__num">2</span>
+                        <div>
+                            <strong>Parsowanie</strong>
+                            <p>Dedykowany parser dla każdej pływalni odczytuje dane o rezerwacjach — w tym pliki z kolorowym kodowaniem.</p>
+                        </div>
+                    </div>
+                    <div class="about-step">
+                        <span class="about-step__num">3</span>
+                        <div>
+                            <strong>Publikacja</strong>
+                            <p>Przetworzone dane trafiają na stronę automatycznie — bez żadnej ręcznej interwencji.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-card">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">schedule</span>
+                </div>
+                <h2 class="about-card__title">Jak często są aktualizacje?</h2>
+                <p class="about-card__text">Harmonogramy są pobierane <strong>raz dziennie</strong> o godzinie 08:00 (czas środkowoeuropejski). Pływalnie zazwyczaj aktualizują swoje harmonogramy raz w tygodniu lub przy zmianach sezonowych.</p>
+                <p class="about-card__text">Daty ostatniej aktualizacji danych są widoczne w nagłówku każdej karty pływalni.</p>
+            </section>
+
+            <section class="about-card about-card--faq">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">quiz</span>
+                </div>
+                <h2 class="about-card__title">FAQ</h2>
+                <dl class="about-faq">
+                    <div class="about-faq__item">
+                        <dt>Czy mogę zarezerwować tor przez OceanMan?</dt>
+                        <dd>Nie — OceanMan pokazuje tylko dostępność. Rezerwacji dokonujesz bezpośrednio na stronie lub w kasie pływalni.</dd>
+                    </div>
+                    <div class="about-faq__item">
+                        <dt>Dane są nieaktualne lub błędne — co zrobić?</dt>
+                        <dd>Kliknij "Zgłoś problem" w stopce strony lub utwórz issue bezpośrednio na <a href="https://github.com/hgawryluk/OceanMan/issues" target="_blank" rel="noopener" class="about-link">GitHubie</a>.</dd>
+                    </div>
+                    <div class="about-faq__item">
+                        <dt>Kiedy będą kolejne pływalnie?</dt>
+                        <dd>Wsparcie dla nowych pływalni zależy od formatu ich harmonogramów. Zgłoś pływalnię przez GitHub Issues — to pomoże ustalić priorytety.</dd>
+                    </div>
+                    <div class="about-faq__item">
+                        <dt>Czy aplikacja działa offline?</dt>
+                        <dd>Dane wymagają połączenia z internetem. Strona jest jednak bardzo lekka i ładuje się szybko nawet przy słabym łączu.</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="about-card">
+                <div class="about-card__icon-wrap">
+                    <span class="material-symbols-rounded">rocket_launch</span>
+                </div>
+                <h2 class="about-card__title">Plany na przyszłość</h2>
+                <ul class="about-roadmap">
+                    <li class="about-roadmap__item about-roadmap__item--done">
+                        <span class="material-symbols-rounded">check_circle</span>
+                        Parsery dla 4 pływalni (Delfin, Foka, Inflancka, Potocka)
+                    </li>
+                    <li class="about-roadmap__item about-roadmap__item--done">
+                        <span class="material-symbols-rounded">check_circle</span>
+                        Automatyczne codzienne aktualizacje
+                    </li>
+                    <li class="about-roadmap__item about-roadmap__item--done">
+                        <span class="material-symbols-rounded">check_circle</span>
+                        Responsywny interfejs mobilny
+                    </li>
+                    <li class="about-roadmap__item">
+                        <span class="material-symbols-rounded">radio_button_unchecked</span>
+                        Najlepsza godzina na pływanie dzisiaj
+                    </li>
+                    <li class="about-roadmap__item">
+                        <span class="material-symbols-rounded">radio_button_unchecked</span>
+                        Historia dostępności i tygodniowe wzorce
+                    </li>
+                    <li class="about-roadmap__item">
+                        <span class="material-symbols-rounded">radio_button_unchecked</span>
+                        Możliwość zgłaszania nowych pływalni
+                    </li>
+                    <li class="about-roadmap__item">
+                        <span class="material-symbols-rounded">radio_button_unchecked</span>
+                        Możliwość zgłaszania nowych pływalni przez użytkowników
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+
+        <section class="about-github">
+            <span class="material-symbols-rounded about-github__icon">code</span>
+            <div class="about-github__text">
+                <strong>OceanMan jest open-source</strong>
+                <span>Kod źródłowy dostępny na GitHubie. Wkład w projekt mile widziany.</span>
+            </div>
+            <a href="https://github.com/hgawryluk/OceanMan" target="_blank" rel="noopener" class="btn">
+                GitHub → hgawryluk/OceanMan
+            </a>
+        </section>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__name">OceanMan</span>
+            <span class="site-footer__desc">Dostępność torów pływackich</span>
+        </div>
+        <div class="site-footer__meta">
+            <a href="https://github.com/hgawryluk/OceanMan" target="_blank" rel="noopener" class="site-footer__link">GitHub</a>
+            <a href="https://github.com/hgawryluk/OceanMan/issues/new?labels=bug" target="_blank" rel="noopener" class="site-footer__link">Zgłoś problem</a>
+            <span class="site-footer__version">v{{ version }}</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

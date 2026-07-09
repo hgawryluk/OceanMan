@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nie znaleziono — OceanMan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+</head>
+<body>
+
+<header class="app-bar">
+    <div class="app-bar__inner">
+        <div class="app-bar__brand">
+            <span class="material-symbols-rounded app-bar__logo">pool</span>
+            <div class="app-bar__brand-text">
+                <span class="app-bar__title">OceanMan</span>
+                <span class="app-bar__subtitle">Dostępność torów</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="not-found">
+            <span class="material-symbols-rounded not-found__icon">waves</span>
+            <p class="not-found__code">404</p>
+            <p class="not-found__text">Nie znaleziono tej strony</p>
+            <a href="{{ home_url }}" class="btn">Wróć na stronę główną</a>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <span class="site-footer__name">OceanMan</span>
+            <span class="site-footer__desc">Dostępność torów pływackich</span>
+        </div>
+        <div class="site-footer__meta">
+            <a href="https://github.com/hgawryluk/OceanMan" target="_blank" rel="noopener" class="site-footer__link">GitHub</a>
+            <span class="site-footer__version">v{{ version }}</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
