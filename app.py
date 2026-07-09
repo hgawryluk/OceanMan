@@ -16,7 +16,7 @@ log = logging.getLogger(__name__)
 
 VERSION       = "1.0.0"
 SITE_URL      = "https://hgawryluk.github.io/OceanMan"
-FORMSPREE_ID  = ""  # set to your Formspree form ID, e.g. "xyzabcde"
+FORMSPREE_ID  = "mdarrbdz"
 
 app = Flask(__name__)
 scheduler: BackgroundScheduler | None = None
