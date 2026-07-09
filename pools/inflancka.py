@@ -24,7 +24,8 @@ WEEKDAY_MAP = {
 }
 
 TIME_RE = re.compile(r"^\d{2}:\d{2}$")
-LANE_NUMS = set(map(str, range(10)))
+DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
+LANE_NUMS = set(map(str, range(10)))  # Inflancka lanes labeled 0–9
 
 # Color of a free ("Tory dostępne") cell in the PDF color legend.
 FREE_COLOR = (0.706, 0.776, 0.906)
@@ -44,14 +45,25 @@ def discover() -> str | None:
     except Exception:
         return None
     soup = BeautifulSoup(resp.text, "lxml")
+    candidates: list[tuple[datetime, str]] = []
+    fallback: str | None = None
     for a in soup.find_all("a", href=True):
         href = a["href"]
         if ".pdf" not in href.lower():
             continue
         text = a.get_text(" ", strip=True).lower()
-        if "pływalni" in text or ("harmonogram" in text and "tor" in text):
-            return urljoin(BASE_URL, href) if href.startswith("/") else href
-    return None
+        if not ("pływalni" in text or ("harmonogram" in text and "tor" in text)):
+            continue
+        full_url = urljoin(BASE_URL, href)
+        dates = DATE_RE.findall(text)
+        if dates:
+            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
+            candidates.append((datetime(y, mo, d), full_url))
+        else:
+            fallback = full_url
+    if candidates:
+        return max(candidates, key=lambda x: x[0])[1]
+    return fallback
 
 
 def _parse_page(page) -> tuple[str | None, list[SlotReading]]:

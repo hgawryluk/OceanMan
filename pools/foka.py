@@ -42,8 +42,11 @@ def _is_white(color) -> bool:
 
 
 def discover() -> str | None:
-    resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-    resp.raise_for_status()
+    try:
+        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
+        resp.raise_for_status()
+    except Exception:
+        return None
     soup = BeautifulSoup(resp.text, "lxml")
 
     candidates: list[tuple[datetime, str]] = []
@@ -169,23 +172,20 @@ def _build_geometry(page):
 
 
 def parse(pdf_bytes: bytes, source_url: str, source_hash: str) -> PoolSchedule:
-    with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
-        page = pdf.pages[0]
-        time_slots, day_lanes = _build_geometry(page)
-
-    if not time_slots:
-        raise ValueError("Foka: could not detect time slots in PDF")
-    if not day_lanes:
-        raise ValueError("Foka: could not detect day columns in PDF")
-
-    # Derive grid y-bounds from detected time slots to exclude header/footer decorations.
-    grid_y_top = min(s[2] for s in time_slots)
-    grid_y_bot = max(s[3] for s in time_slots)
-
     MIN_LANE_OVERLAP = 3.0  # px — avoids thin borders being counted
 
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
         page = pdf.pages[0]
+        time_slots, day_lanes = _build_geometry(page)
+
+        if not time_slots:
+            raise ValueError("Foka: could not detect time slots in PDF")
+        if not day_lanes:
+            raise ValueError("Foka: could not detect day columns in PDF")
+
+        grid_y_top = min(s[2] for s in time_slots)
+        grid_y_bot = max(s[3] for s in time_slots)
+
         colored = [
             {
                 "x0": r["x0"], "x1": r["x1"],

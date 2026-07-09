@@ -107,15 +107,6 @@ def log_fetch(pool: str, changed: bool, note: str = ""):
         )
 
 
-def get_last_checked(pool: str) -> str | None:
-    with sqlite3.connect(DB_PATH) as con:
-        row = con.execute(
-            "SELECT checked_at FROM fetch_log WHERE pool = ? ORDER BY checked_at DESC LIMIT 1",
-            (pool,),
-        ).fetchone()
-        return row[0] if row else None
-
-
 def get_last_fetch_entry(pool: str) -> dict | None:
     """Return the most recent fetch_log row for the pool."""
     with sqlite3.connect(DB_PATH) as con:

@@ -62,7 +62,7 @@ def discover() -> str | None:
             continue
         text = a.get_text(" ", strip=True)
         text_lower = text.lower()
-        if "grafik" not in text_lower or ("pływalni" not in text_lower and "tor" not in text_lower):
+        if "grafik" not in text_lower or ("pływal" not in text_lower and "tor" not in text_lower):
             continue
         # Extract the latest DD.MM.YYYY date from link text to rank schedules
         dates = DATE_RE.findall(text)

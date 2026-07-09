@@ -27,8 +27,8 @@ DAYS = [
     ("sunday",    "Niedz"),
 ]
 
-PL_DAYS   = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Niedz"]
-PL_MONTHS = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
+_DAY_LABELS = {key: label for key, label in DAYS}
+PL_MONTHS   = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
 
 POOL_MODULES = {
     "delfin":    delfin_pool,
@@ -159,7 +159,7 @@ def index():
             "current_slot": next((s for s in slots if s["is_current"]), None),
         })
 
-    now_date_pl = f"{PL_DAYS[now.weekday()]}, {now.day} {PL_MONTHS[now.month - 1]}"
+    now_date_pl = f"{_DAY_LABELS[today]}, {now.day} {PL_MONTHS[now.month - 1]}"
 
     return render_template(
         "index.html",

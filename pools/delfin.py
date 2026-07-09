@@ -29,8 +29,11 @@ DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 
 
 def discover() -> str | None:
-    resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-    resp.raise_for_status()
+    try:
+        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
+        resp.raise_for_status()
+    except Exception:
+        return None
     soup = BeautifulSoup(resp.text, "lxml")
 
     candidates: list[tuple[datetime, str]] = []
@@ -152,7 +155,7 @@ def _parse_pdf(pdf_bytes: bytes, source_url: str, source_hash: str) -> PoolSched
         if key in WEEKDAY_MAP:
             col_to_day[i] = WEEKDAY_MAP[key]
 
-    time_col = min(col_to_day.keys()) - 1 if col_to_day else 1
+    time_col = max(0, min(col_to_day.keys()) - 1) if col_to_day else 1
 
     for row in table:
         if row is None:
