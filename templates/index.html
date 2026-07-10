@@ -218,6 +218,19 @@
     function nowMin()   { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
     function toMin(t)   { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
 
+    // If index.html was built on a different day, redirect to today's page.
+    (function () {
+        var main = document.querySelector('main');
+        var pageDay = main && main.dataset.day;
+        var real = todayKey();
+        if (pageDay && pageDay !== real) {
+            var p = window.location.pathname;
+            if (p.endsWith('/') || p.endsWith('index.html')) {
+                window.location.replace(real + '.html');
+            }
+        }
+    }());
+
     function tick() {
         var d = new Date();
         var el = document.getElementById('clock');
