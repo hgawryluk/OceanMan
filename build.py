@@ -139,6 +139,7 @@ def build(run_parsers: bool = False, from_json: bool = False) -> None:
         html_404 = render_template("404.html", version=VERSION, site_url=SITE_URL, home_url="./index.html")
         html_404 = html_404.replace('href="/static/', 'href="static/')
         html_404 = html_404.replace('src="/static/', 'src="static/')
+        html_404 = html_404.replace('href="/"', 'href="index.html"')
         (dist / "404.html").write_text(html_404, encoding="utf-8")
         print("  404.html")
 
