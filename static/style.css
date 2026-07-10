@@ -92,7 +92,7 @@ body {
     align-items: center;
     gap: 0.625rem;
     text-decoration: none;
-    color: inherit;
+    color: var(--c-text);
     cursor: pointer;
 }
 
