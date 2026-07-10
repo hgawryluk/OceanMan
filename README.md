@@ -2,6 +2,8 @@
 
 Aplikacja webowa do sprawdzania dostępności torów pływackich. Zamiast sprawdzać osobne strony z harmonogramami — jeden rzut oka i wiesz, gdzie warto pojechać.
 
+https://hgawryluk.github.io/OceanMan
+
 ## Obsługiwane pływalnie
 
 | Pływalnia | Adres | Tory | Slot | Format harmonogramu |
