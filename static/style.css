@@ -91,6 +91,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.625rem;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .app-bar__logo {
