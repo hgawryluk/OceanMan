@@ -334,7 +334,6 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    align-items: start;
 }
 
 @media (max-width: 1100px) { .pools-grid { grid-template-columns: repeat(2, 1fr); } }
