@@ -1,36 +1,36 @@
 {
-  "generated_at": "2026-07-09T12:55:00.923189",
+  "generated_at": "2026-07-17T00:47:26.258926",
   "pools": {
     "delfin": {
       "name": "Delfin",
       "status": "ok",
       "slot_count": 210,
-      "last_fetched": "2026-07-07T23:13:50.575598",
-      "last_checked": "2026-07-09T12:54:54.941176",
+      "last_fetched": "2026-07-17T00:47:13.467598",
+      "last_checked": "2026-07-17T00:47:13.472603",
       "last_error": null
     },
     "foka": {
       "name": "Foka",
       "status": "ok",
       "slot_count": 224,
-      "last_fetched": "2026-07-07T23:13:54.779841",
-      "last_checked": "2026-07-09T12:54:56.903099",
+      "last_fetched": "2026-07-17T00:47:16.784232",
+      "last_checked": "2026-07-17T00:47:16.791920",
       "last_error": null
     },
     "inflancka": {
       "name": "Inflancka",
       "status": "ok",
       "slot_count": 425,
-      "last_fetched": "2026-07-07T23:14:00.624330",
-      "last_checked": "2026-07-09T12:54:58.963063",
+      "last_fetched": "2026-07-17T00:47:22.715307",
+      "last_checked": "2026-07-17T00:47:22.720658",
       "last_error": null
     },
     "potocka": {
       "name": "Potocka",
       "status": "ok",
       "slot_count": 476,
-      "last_fetched": "2026-07-07T23:16:46.591970",
-      "last_checked": "2026-07-09T12:55:00.914590",
+      "last_fetched": "2026-07-17T00:47:26.247931",
+      "last_checked": "2026-07-17T00:47:26.257023",
       "last_error": null
     }
   }
