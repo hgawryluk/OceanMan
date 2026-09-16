@@ -213,6 +213,8 @@
 <script>
 (function () {
     var DAYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    var PL_DAY_LABELS = ['Niedz','Pon','Wt','Śr','Czw','Pt','Sob'];
+    var PL_MONTHS = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
 
     function todayKey() { return DAYS[new Date().getDay()]; }
     function nowMin()   { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
@@ -235,6 +237,9 @@
         var d = new Date();
         var el = document.getElementById('clock');
         if (el) el.textContent = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+
+        var dateEl = document.querySelector('.date');
+        if (dateEl) dateEl.textContent = PL_DAY_LABELS[d.getDay()] + ', ' + d.getDate() + ' ' + PL_MONTHS[d.getMonth()];
     }
 
     function updateAll() {
