@@ -116,3 +116,14 @@ def get_last_fetch_entry(pool: str) -> dict | None:
             (pool,),
         ).fetchone()
         return dict(row) if row else None
+
+
+_NON_ERROR_NOTES = {"no change", ""}
+
+
+def get_last_error(pool: str) -> str | None:
+    """Return the note from the last fetch attempt if it represents a real failure."""
+    entry = get_last_fetch_entry(pool)
+    if entry and not entry["changed"] and entry["note"] not in _NON_ERROR_NOTES:
+        return entry["note"]
+    return None

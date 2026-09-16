@@ -1,17 +1,14 @@
 import io
 import re
 from datetime import datetime
-from urllib.parse import urljoin
 
-import httpx
 import pdfplumber
-from bs4 import BeautifulSoup
 
 from models import PoolSchedule, SlotReading
+from pools import _shared
+from pools._shared import is_white as _is_white
 
 PAGE_URL = "https://sport.um.warszawa.pl/waw/osir-wola/-/plywalnia-kryta-foka-esperanto-5"
-BASE_URL = "https://sport.um.warszawa.pl"
-HEADERS = {"User-Agent": "OceanMan/1.0 (personal pool schedule tracker)"}
 
 WEEKDAY_MAP = {
     "sobota": "saturday",
@@ -24,53 +21,18 @@ WEEKDAY_MAP = {
 }
 
 TIME_RE = re.compile(r"^(\d{1,2})[:\.](\d{2})$")
-DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 TOTAL_LANES = 6
-WHITE_THRESHOLD = 0.85
 
 
-def _is_white(color) -> bool:
-    if color is None:
-        return True
-    if isinstance(color, (int, float)):
-        return color >= WHITE_THRESHOLD
-    if isinstance(color, (list, tuple)):
-        if len(color) == 4 and all(c == 0 for c in color):
-            return True  # CMYK (0,0,0,0) = white
-        return all(c >= WHITE_THRESHOLD for c in color[:3])
-    return True
+def _matches(text_lower: str) -> bool:
+    return "rezerwac" in text_lower or "wykaz" in text_lower or ("wolnych" in text_lower and "tor" in text_lower)
 
 
 def discover() -> str | None:
-    try:
-        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-        resp.raise_for_status()
-    except Exception:
+    html = _shared.fetch_page(PAGE_URL)
+    if html is None:
         return None
-    soup = BeautifulSoup(resp.text, "lxml")
-
-    candidates: list[tuple[datetime, str]] = []
-    fallback: str | None = None
-
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if ".pdf" not in href.lower():
-            continue
-        text = a.get_text(" ", strip=True)
-        text_lower = text.lower()
-        if not ("rezerwac" in text_lower or "wykaz" in text_lower or ("wolnych" in text_lower and "tor" in text_lower)):
-            continue
-        full_url = urljoin(BASE_URL, href) if href.startswith("/") else href
-        dates = DATE_RE.findall(text)
-        if dates:
-            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
-            candidates.append((datetime(y, mo, d), full_url))
-        else:
-            fallback = full_url
-
-    if candidates:
-        return max(candidates, key=lambda x: x[0])[1]
-    return fallback
+    return _shared.find_latest_document_link(html, _matches)
 
 
 def _build_geometry(page):

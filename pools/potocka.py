@@ -1,17 +1,14 @@
 import io
 import re
 from datetime import datetime
-from urllib.parse import urljoin
 
-import httpx
 import pdfplumber
-from bs4 import BeautifulSoup
 
 from models import PoolSchedule, SlotReading
+from pools import _shared
+from pools._shared import DATE_RE, is_white as _is_white
 
 PAGE_URL = "https://sport.um.warszawa.pl/waw/osir-zoliborz/-/plywalnia-potocka"
-BASE_URL = "https://sport.um.warszawa.pl"
-HEADERS = {"User-Agent": "OceanMan/1.0 (personal pool schedule tracker)"}
 TOTAL_LANES = 8
 
 # Columns per day block: GODZ./TOR, 1, 2, 3, 4, 5, 6, R, B  (9 total)
@@ -19,7 +16,6 @@ COLS_PER_DAY = 9
 LANE_COLS = 8  # lanes 1-6 plus R (rekreacja) and B (brodzik) — all 8 take reservations
 
 TIME_RE = re.compile(r"^(\d{1,2})\.(\d{2})-(\d{1,2})\.(\d{2})$")
-DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 
 
 def _parse_time(s: str) -> tuple[str, str] | None:
@@ -30,49 +26,21 @@ def _parse_time(s: str) -> tuple[str, str] | None:
     return f"{int(h1):02d}:{m1}", f"{int(h2):02d}:{m2}"
 
 
-def _is_white(color) -> bool:
-    if color is None:
-        return True
-    if isinstance(color, (int, float)):
-        return color >= 0.85
-    if isinstance(color, (list, tuple)):
-        if len(color) == 4 and all(c == 0 for c in color):
-            return True  # CMYK (0,0,0,0) = white
-        return all(c >= 0.85 for c in color[:3])
-    return True
-
-
 def _cell_is_free(cell_rects: list) -> bool:
     if not cell_rects:
         return True
     return all(_is_white(r.get("non_stroking_color")) for r in cell_rects)
 
 
+def _matches(text_lower: str) -> bool:
+    return "grafik" in text_lower and ("pływal" in text_lower or "tor" in text_lower)
+
+
 def discover() -> str | None:
-    try:
-        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-        resp.raise_for_status()
-    except Exception:
+    html = _shared.fetch_page(PAGE_URL)
+    if html is None:
         return None
-    soup = BeautifulSoup(resp.text, "lxml")
-    candidates: list[tuple[datetime, str]] = []
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if ".pdf" not in href.lower():
-            continue
-        text = a.get_text(" ", strip=True)
-        text_lower = text.lower()
-        if "grafik" not in text_lower or ("pływal" not in text_lower and "tor" not in text_lower):
-            continue
-        # Extract the latest DD.MM.YYYY date from link text to rank schedules
-        dates = DATE_RE.findall(text)
-        if dates:
-            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
-            full_url = urljoin(BASE_URL, href) if href.startswith("/") else href
-            candidates.append((datetime(y, mo, d), full_url))
-    if not candidates:
-        return None
-    return max(candidates, key=lambda x: x[0])[1]
+    return _shared.find_latest_document_link(html, _matches)
 
 
 def parse(pdf_bytes: bytes, source_url: str, source_hash: str) -> PoolSchedule:

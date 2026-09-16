@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T12:38:44.582500",
+  "generated_at": "2026-09-16T12:55:44.299212",
   "pools": {
     "delfin": {
       "name": "Delfin",
@@ -31,7 +31,7 @@
       "slot_count": 476,
       "last_fetched": "2026-07-17T00:47:26.247931",
       "last_checked": "2026-09-16T12:38:44.564979",
-      "last_error": null
+      "last_error": "no url found"
     }
   }
 }

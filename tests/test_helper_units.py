@@ -1,51 +1,42 @@
 """Unit tests for pure helper functions across pool parsers."""
 import pytest
 
-from pools.foka import _is_white as foka_is_white
-from pools.potocka import _is_white as potocka_is_white, _parse_time
+from pools._shared import is_white
+from pools.potocka import _parse_time
 from pools.inflancka import _color_is_free, LANE_NUMS, FREE_COLOR
 
 
 class TestIsWhite:
-    """Same logic in foka and potocka — test both."""
+    """Shared by every parser that does color-fill detection (foka, potocka)."""
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_none_is_white(self, fn):
-        assert fn(None) is True
+    def test_none_is_white(self):
+        assert is_white(None) is True
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_high_grayscale_is_white(self, fn):
-        assert fn(0.9) is True
+    def test_high_grayscale_is_white(self):
+        assert is_white(0.9) is True
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_low_grayscale_is_not_white(self, fn):
-        assert fn(0.5) is False
+    def test_low_grayscale_is_not_white(self):
+        assert is_white(0.5) is False
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_rgb_white(self, fn):
-        assert fn([1.0, 1.0, 1.0]) is True
+    def test_rgb_white(self):
+        assert is_white([1.0, 1.0, 1.0]) is True
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_rgb_near_white(self, fn):
-        assert fn([0.9, 0.9, 0.9]) is True
+    def test_rgb_near_white(self):
+        assert is_white([0.9, 0.9, 0.9]) is True
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_rgb_red_is_not_white(self, fn):
-        assert fn([1.0, 0.0, 0.0]) is False
+    def test_rgb_red_is_not_white(self):
+        assert is_white([1.0, 0.0, 0.0]) is False
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_cmyk_all_zeros_is_white(self, fn):
-        assert fn([0, 0, 0, 0]) is True
+    def test_cmyk_all_zeros_is_white(self):
+        assert is_white([0, 0, 0, 0]) is True
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_cmyk_with_ink_is_not_white(self, fn):
-        assert fn([0.5, 0.0, 0.0, 0.0]) is False
+    def test_cmyk_with_ink_is_not_white(self):
+        assert is_white([0.5, 0.0, 0.0, 0.0]) is False
 
-    @pytest.mark.parametrize("fn", [foka_is_white, potocka_is_white])
-    def test_threshold_boundary(self, fn):
+    def test_threshold_boundary(self):
         # Exactly at threshold (0.85) should be white
-        assert fn(0.85) is True
-        assert fn(0.849) is False
+        assert is_white(0.85) is True
+        assert is_white(0.849) is False
 
 
 class TestColorIsFree:

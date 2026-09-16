@@ -62,7 +62,7 @@ def generate(run_parsers: bool = False) -> None:
             "slot_count": len(data["slots"]) if data else 0,
             "last_fetched": data["schedule"]["fetched_at"] if data else None,
             "last_checked": last["checked_at"] if last else None,
-            "last_error": last["note"] if last and not last["changed"] and last["note"] not in ("no change", "no url found", "") else None,
+            "last_error": store.get_last_error(key),
         }
 
     metadata = {
@@ -88,6 +88,16 @@ def generate(run_parsers: bool = False) -> None:
 
     print(f"\nDone. Generated at {generated_at}")
 
+    problems = {key: info for key, info in meta_pools.items() if info["status"] != "ok" or info["last_error"]}
+    if problems:
+        print("\n/!\\ Pools needing attention:")
+        for key, info in problems.items():
+            reason = info["last_error"] or "no data"
+            print(f"  - {info['name']}: {reason} (last fetched: {info['last_fetched'] or 'never'})")
+        return False
+    return True
+
 
 if __name__ == "__main__":
-    generate(run_parsers="--refresh" in sys.argv)
+    ok = generate(run_parsers="--refresh" in sys.argv)
+    sys.exit(0 if ok else 1)

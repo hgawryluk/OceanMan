@@ -1,18 +1,14 @@
 import io
 import re
 from datetime import datetime
-from urllib.parse import urljoin
 
-import httpx
 import openpyxl
 import pdfplumber
-from bs4 import BeautifulSoup
 
 from models import PoolSchedule, SlotReading
+from pools import _shared
 
 PAGE_URL = "https://sport.um.warszawa.pl/waw/osir-wola/-/plywalnia-kryta-delfin-kasprzaka-1-3"
-BASE_URL = "https://sport.um.warszawa.pl"
-HEADERS = {"User-Agent": "OceanMan/1.0 (personal pool schedule tracker)"}
 
 WEEKDAY_MAP = {
     "pon.": "monday",
@@ -25,48 +21,20 @@ WEEKDAY_MAP = {
 }
 
 TIME_RE = re.compile(r"(\d{2})[.\:](\d{2})-(\d{2})[.\:](\d{2})")
-DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
+
+
+def _matches(text_lower: str) -> bool:
+    return (
+        ("grafik" in text_lower and "tor" in text_lower and "brodzik" not in text_lower and "niecki" not in text_lower)
+        or ("wolnych" in text_lower and "tor" in text_lower)
+    )
 
 
 def discover() -> str | None:
-    try:
-        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-        resp.raise_for_status()
-    except Exception:
+    html = _shared.fetch_page(PAGE_URL)
+    if html is None:
         return None
-    soup = BeautifulSoup(resp.text, "lxml")
-
-    candidates: list[tuple[datetime, str]] = []
-    fallback: str | None = None
-
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        href_lower = href.lower()
-        is_doc = (
-            href_lower.endswith(".pdf") or ".pdf/" in href_lower
-            or href_lower.endswith(".xlsx") or ".xlsx/" in href_lower
-        )
-        if not is_doc:
-            continue
-        text = a.get_text(" ", strip=True)
-        text_lower = text.lower()
-        is_match = (
-            ("grafik" in text_lower and "tor" in text_lower and "brodzik" not in text_lower and "niecki" not in text_lower)
-            or ("wolnych" in text_lower and "tor" in text_lower)
-        )
-        if not is_match:
-            continue
-        full_url = urljoin(BASE_URL, href) if href.startswith("/") else href
-        dates = DATE_RE.findall(text)
-        if dates:
-            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
-            candidates.append((datetime(y, mo, d), full_url))
-        else:
-            fallback = full_url
-
-    if candidates:
-        return max(candidates, key=lambda x: x[0])[1]
-    return fallback
+    return _shared.find_latest_document_link(html, _matches, extensions=(".pdf", ".xlsx"))
 
 
 def parse(file_bytes: bytes, source_url: str, source_hash: str) -> PoolSchedule:

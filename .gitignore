@@ -4,3 +4,9 @@ __pycache__/
 cache/
 dist/
 .env
+.coverage
+coverage.xml
+*.log
+verify_ui.py
+verify_full.png
+_ss.mjs

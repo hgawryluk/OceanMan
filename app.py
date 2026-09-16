@@ -195,9 +195,7 @@ def health():
         has_data = data is not None
         if not has_data:
             any_missing = True
-        last_error = None
-        if last and not last["changed"] and last["note"] not in ("no change", "no url found", ""):
-            last_error = last["note"]
+        last_error = store.get_last_error(key)
         pools_status[key] = {
             "status": "ok" if has_data else "no_data",
             "slot_count": len(data["slots"]) if data else 0,

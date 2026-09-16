@@ -1,6 +1,23 @@
 # OceanMan — Architecture Review & Migration Plan
 
 > Generated: 2026-06-19
+>
+> **⚠️ Status (2026-09-16): this document is a point-in-time analysis, not current docs.**
+> The recommendation in [§10](#10-decision-recommendation) — **Alternative 1: Static Site
+> Generation → GitHub Pages** — is what actually got built. The app now runs as:
+> - `templates/index.html` + `app.py` rendered once by `build.py` into static `dist/*.html`
+>   (client-side JS ticks the clock/date and highlights the current slot — no live server)
+> - `docs/data/*.json` is the committed data source, refreshed locally via
+>   `py generate.py --refresh` (pool sites block GitHub Actions IPs, so this can't run
+>   unattended in CI — see `.github/workflows/generate.yml`)
+> - `.github/workflows/deploy.yml` builds `dist/` from that committed JSON and deploys to
+>   GitHub Pages on every push to `master`
+> - SQLite (`data/pools.db`) is still used, but only as build-time scratch storage — it's
+>   gitignored and never deployed
+>
+> None of the Vercel/Neon/Railway/Fly.io sections below were implemented. They're kept for
+> reference in case cloud deployment is revisited, but treat everything past this notice as
+> **historical**, not a description of the live app.
 
 ---
 

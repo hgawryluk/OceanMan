@@ -1,17 +1,13 @@
 import io
 import re
 from datetime import datetime
-from urllib.parse import urljoin
 
-import httpx
 import pdfplumber
-from bs4 import BeautifulSoup
 
 from models import PoolSchedule, SlotReading
+from pools import _shared
 
 PAGE_URL = "https://sport.um.warszawa.pl/waw/aktywna-warszawa/harmonogramy-w-osrodku-inflancka"
-BASE_URL = "https://sport.um.warszawa.pl"
-HEADERS = {"User-Agent": "OceanMan/1.0 (personal pool schedule tracker)"}
 
 WEEKDAY_MAP = {
     "poniedziałek": "monday",
@@ -24,7 +20,6 @@ WEEKDAY_MAP = {
 }
 
 TIME_RE = re.compile(r"^\d{2}:\d{2}$")
-DATE_RE = re.compile(r"(\d{2})\.(\d{2})\.(\d{4})")
 LANE_NUMS = set(map(str, range(10)))  # Inflancka lanes labeled 0–9
 
 # Color of a free ("Tory dostępne") cell in the PDF color legend.
@@ -38,32 +33,15 @@ def _color_is_free(color) -> bool:
     return all(abs(color[i] - FREE_COLOR[i]) < COLOR_TOL for i in range(3))
 
 
+def _matches(text_lower: str) -> bool:
+    return "pływalni" in text_lower or ("harmonogram" in text_lower and "tor" in text_lower)
+
+
 def discover() -> str | None:
-    try:
-        resp = httpx.get(PAGE_URL, timeout=20, follow_redirects=True, headers=HEADERS)
-        resp.raise_for_status()
-    except Exception:
+    html = _shared.fetch_page(PAGE_URL)
+    if html is None:
         return None
-    soup = BeautifulSoup(resp.text, "lxml")
-    candidates: list[tuple[datetime, str]] = []
-    fallback: str | None = None
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if ".pdf" not in href.lower():
-            continue
-        text = a.get_text(" ", strip=True).lower()
-        if not ("pływalni" in text or ("harmonogram" in text and "tor" in text)):
-            continue
-        full_url = urljoin(BASE_URL, href)
-        dates = DATE_RE.findall(text)
-        if dates:
-            d, mo, y = int(dates[-1][0]), int(dates[-1][1]), int(dates[-1][2])
-            candidates.append((datetime(y, mo, d), full_url))
-        else:
-            fallback = full_url
-    if candidates:
-        return max(candidates, key=lambda x: x[0])[1]
-    return fallback
+    return _shared.find_latest_document_link(html, _matches)
 
 
 def _parse_page(page) -> tuple[str | None, list[SlotReading]]:
