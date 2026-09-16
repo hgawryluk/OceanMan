@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-05T22:10:59.978131",
+  "generated_at": "2026-09-16T12:38:44.582500",
   "schedules": {
     "delfin": {
-      "fetched_at": "2026-09-05T22:10:39.685993",
-      "source_url": "https://sport.um.warszawa.pl/documents/63416001/0/Aktualizacja+duzy+basen+01.09+-+06.09.2026.pdf/06f9f22d-2d0f-0ae9-81e8-6d6b365fdb47?t=1787921754147",
+      "fetched_at": "2026-09-16T12:38:35.569842",
+      "source_url": "https://sport.um.warszawa.pl/documents/63416001/127865416/Aktualizacja+duzy+basen+%282%29+delfin+wrz.pdf/bea2bb80-106d-bdf9-b3ea-5b0126e66877?t=1789468969367",
       "slots": [
         {
           "weekday": "friday",
@@ -79,14 +79,14 @@
           "weekday": "friday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -121,63 +121,63 @@
           "weekday": "friday",
           "slot_start": "15:00",
           "slot_end": "15:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "15:30",
           "slot_end": "16:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "friday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 5,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -233,14 +233,14 @@
           "weekday": "monday",
           "slot_start": "08:00",
           "slot_end": "08:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "08:30",
           "slot_end": "09:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -254,28 +254,28 @@
           "weekday": "monday",
           "slot_start": "09:30",
           "slot_end": "10:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "10:00",
           "slot_end": "10:30",
-          "free_lanes": 6,
+          "free_lanes": 1,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "10:30",
           "slot_end": "11:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "11:00",
           "slot_end": "11:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
@@ -289,112 +289,112 @@
           "weekday": "monday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "13:30",
           "slot_end": "14:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "14:00",
           "slot_end": "14:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "14:30",
           "slot_end": "15:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "15:00",
           "slot_end": "15:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "15:30",
           "slot_end": "16:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "monday",
           "slot_start": "19:30",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -450,70 +450,70 @@
           "weekday": "saturday",
           "slot_start": "08:30",
           "slot_end": "09:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "09:00",
           "slot_end": "09:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "09:30",
           "slot_end": "10:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "10:00",
           "slot_end": "10:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "10:30",
           "slot_end": "11:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "11:00",
           "slot_end": "11:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "11:30",
           "slot_end": "12:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "saturday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -674,14 +674,14 @@
           "weekday": "sunday",
           "slot_start": "09:30",
           "slot_end": "10:00",
-          "free_lanes": 4,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "10:00",
           "slot_end": "10:30",
-          "free_lanes": 4,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
@@ -723,7 +723,7 @@
           "weekday": "sunday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -765,49 +765,49 @@
           "weekday": "sunday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 5,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 5,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 5,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "sunday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 5,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -919,112 +919,112 @@
           "weekday": "thursday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "13:30",
           "slot_end": "14:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "14:00",
           "slot_end": "14:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "14:30",
           "slot_end": "15:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "15:00",
           "slot_end": "15:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "15:30",
           "slot_end": "16:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "thursday",
           "slot_start": "19:30",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -1073,21 +1073,21 @@
           "weekday": "tuesday",
           "slot_start": "08:00",
           "slot_end": "08:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "08:30",
           "slot_end": "09:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "09:00",
           "slot_end": "09:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
@@ -1101,140 +1101,140 @@
           "weekday": "tuesday",
           "slot_start": "10:00",
           "slot_end": "10:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "10:30",
           "slot_end": "11:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "11:00",
           "slot_end": "11:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "11:30",
           "slot_end": "12:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "13:30",
           "slot_end": "14:00",
-          "free_lanes": 6,
+          "free_lanes": 0,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "14:00",
           "slot_end": "14:30",
-          "free_lanes": 6,
+          "free_lanes": 0,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "14:30",
           "slot_end": "15:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "15:00",
           "slot_end": "15:30",
-          "free_lanes": 6,
+          "free_lanes": 1,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "15:30",
           "slot_end": "16:00",
-          "free_lanes": 6,
+          "free_lanes": 1,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:30",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -1318,14 +1318,14 @@
           "weekday": "wednesday",
           "slot_start": "10:30",
           "slot_end": "11:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "11:00",
           "slot_end": "11:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -1339,28 +1339,28 @@
           "weekday": "wednesday",
           "slot_start": "12:00",
           "slot_end": "12:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "12:30",
           "slot_end": "13:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "13:00",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "13:30",
           "slot_end": "14:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -1374,77 +1374,77 @@
           "weekday": "wednesday",
           "slot_start": "14:30",
           "slot_end": "15:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "15:00",
           "slot_end": "15:30",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "15:30",
           "slot_end": "16:00",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "16:00",
           "slot_end": "16:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "16:30",
           "slot_end": "17:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "17:00",
           "slot_end": "17:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "17:30",
           "slot_end": "18:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:00",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:30",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:00",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:30",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 6
         },
         {
@@ -3052,8 +3052,8 @@
       ]
     },
     "inflancka": {
-      "fetched_at": "2026-09-05T22:10:58.370995",
-      "source_url": "https://sport.um.warszawa.pl/documents/45173230/76631828/Kopia+harmonogram+1+od+07.pdf/de6fa3ca-abd3-5aa4-feaf-04210b55ce2a?t=1788520648664",
+      "fetched_at": "2026-09-16T12:38:43.454617",
+      "source_url": "https://sport.um.warszawa.pl/documents/45173230/76631828/Kopia+harmonogram+od+2+14.09.pdf/b749f3ea-57da-7d8b-302c-1a7aee1811b8?t=1789370251998",
       "slots": [
         {
           "weekday": "friday",
@@ -3248,14 +3248,14 @@
           "weekday": "friday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 5,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 5,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
@@ -3276,28 +3276,28 @@
           "weekday": "friday",
           "slot_start": "14:00",
           "slot_end": "14:15",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "14:15",
           "slot_end": "14:30",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "14:30",
           "slot_end": "14:45",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "14:45",
           "slot_end": "15:00",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
@@ -3374,84 +3374,84 @@
           "weekday": "friday",
           "slot_start": "17:30",
           "slot_end": "17:45",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "17:45",
           "slot_end": "18:00",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "18:00",
           "slot_end": "18:15",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "18:15",
           "slot_end": "18:30",
-          "free_lanes": 7,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "18:30",
           "slot_end": "18:45",
-          "free_lanes": 7,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "18:45",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "19:00",
           "slot_end": "19:15",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "19:15",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "19:30",
           "slot_end": "19:45",
-          "free_lanes": 7,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "19:45",
           "slot_end": "20:00",
-          "free_lanes": 7,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "20:00",
           "slot_end": "20:15",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "friday",
           "slot_start": "20:15",
           "slot_end": "20:30",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
@@ -3626,35 +3626,35 @@
           "weekday": "monday",
           "slot_start": "11:15",
           "slot_end": "11:30",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "11:30",
           "slot_end": "11:45",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "11:45",
           "slot_end": "12:00",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "12:00",
           "slot_end": "12:15",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "12:15",
           "slot_end": "12:30",
-          "free_lanes": 5,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
@@ -3668,21 +3668,21 @@
           "weekday": "monday",
           "slot_start": "12:45",
           "slot_end": "13:00",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
@@ -3787,112 +3787,112 @@
           "weekday": "monday",
           "slot_start": "17:00",
           "slot_end": "17:15",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "17:15",
           "slot_end": "17:30",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "17:30",
           "slot_end": "17:45",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "17:45",
           "slot_end": "18:00",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "18:00",
           "slot_end": "18:15",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "18:15",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "18:30",
           "slot_end": "18:45",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "18:45",
           "slot_end": "19:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "19:00",
           "slot_end": "19:15",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "19:15",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "19:30",
           "slot_end": "19:45",
-          "free_lanes": 7,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "19:45",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "20:00",
           "slot_end": "20:15",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "20:15",
           "slot_end": "20:30",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "20:30",
           "slot_end": "20:45",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "monday",
           "slot_start": "20:45",
           "slot_end": "21:00",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
@@ -4060,70 +4060,70 @@
           "weekday": "saturday",
           "slot_start": "11:30",
           "slot_end": "11:45",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "11:45",
           "slot_end": "12:00",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "12:00",
           "slot_end": "12:15",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "12:15",
           "slot_end": "12:30",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "12:30",
           "slot_end": "12:45",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "12:45",
           "slot_end": "13:00",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "13:30",
           "slot_end": "13:45",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "13:45",
           "slot_end": "14:00",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
@@ -4144,14 +4144,14 @@
           "weekday": "saturday",
           "slot_start": "14:30",
           "slot_end": "14:45",
-          "free_lanes": 7,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "14:45",
           "slot_end": "15:00",
-          "free_lanes": 7,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
@@ -4186,28 +4186,28 @@
           "weekday": "saturday",
           "slot_start": "16:00",
           "slot_end": "16:15",
-          "free_lanes": 8,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "16:15",
           "slot_end": "16:30",
-          "free_lanes": 8,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "16:30",
           "slot_end": "16:45",
-          "free_lanes": 8,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "saturday",
           "slot_start": "16:45",
           "slot_end": "17:00",
-          "free_lanes": 8,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
@@ -4473,133 +4473,133 @@
           "weekday": "sunday",
           "slot_start": "11:00",
           "slot_end": "11:15",
-          "free_lanes": 10,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "11:15",
           "slot_end": "11:30",
-          "free_lanes": 10,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "11:30",
           "slot_end": "11:45",
-          "free_lanes": 10,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "11:45",
           "slot_end": "12:00",
-          "free_lanes": 10,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "12:00",
           "slot_end": "12:15",
-          "free_lanes": 10,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "12:15",
           "slot_end": "12:30",
-          "free_lanes": 10,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "12:30",
           "slot_end": "12:45",
-          "free_lanes": 10,
+          "free_lanes": 9,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "12:45",
           "slot_end": "13:00",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "13:30",
           "slot_end": "13:45",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "13:45",
           "slot_end": "14:00",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "14:00",
           "slot_end": "14:15",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "14:15",
           "slot_end": "14:30",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "14:30",
           "slot_end": "14:45",
-          "free_lanes": 10,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "14:45",
           "slot_end": "15:00",
-          "free_lanes": 10,
+          "free_lanes": 9,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "15:00",
           "slot_end": "15:15",
-          "free_lanes": 10,
+          "free_lanes": 9,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "15:15",
           "slot_end": "15:30",
-          "free_lanes": 10,
+          "free_lanes": 9,
           "total_lanes": 10
         },
         {
           "weekday": "sunday",
           "slot_start": "15:30",
           "slot_end": "15:45",
-          "free_lanes": 10,
+          "free_lanes": 9,
           "total_lanes": 10
         },
         {
@@ -4949,21 +4949,21 @@
           "weekday": "thursday",
           "slot_start": "12:45",
           "slot_end": "13:00",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 7,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 7,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
@@ -5068,126 +5068,126 @@
           "weekday": "thursday",
           "slot_start": "17:00",
           "slot_end": "17:15",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "17:15",
           "slot_end": "17:30",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "17:30",
           "slot_end": "17:45",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "17:45",
           "slot_end": "18:00",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "18:00",
           "slot_end": "18:15",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "18:15",
           "slot_end": "18:30",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "18:30",
           "slot_end": "18:45",
-          "free_lanes": 3,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "18:45",
           "slot_end": "19:00",
-          "free_lanes": 4,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "19:00",
           "slot_end": "19:15",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "19:15",
           "slot_end": "19:30",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "19:30",
           "slot_end": "19:45",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "19:45",
           "slot_end": "20:00",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "20:00",
           "slot_end": "20:15",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "20:15",
           "slot_end": "20:30",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "20:30",
           "slot_end": "20:45",
-          "free_lanes": 8,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "20:45",
           "slot_end": "21:00",
-          "free_lanes": 8,
+          "free_lanes": 4,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "21:00",
           "slot_end": "21:15",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "thursday",
           "slot_start": "21:15",
           "slot_end": "21:30",
-          "free_lanes": 8,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
@@ -5355,42 +5355,42 @@
           "weekday": "tuesday",
           "slot_start": "12:00",
           "slot_end": "12:15",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "12:15",
           "slot_end": "12:30",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "12:30",
           "slot_end": "12:45",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "12:45",
           "slot_end": "13:00",
-          "free_lanes": 4,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
@@ -5495,112 +5495,112 @@
           "weekday": "tuesday",
           "slot_start": "17:00",
           "slot_end": "17:15",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "17:15",
           "slot_end": "17:30",
-          "free_lanes": 2,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "17:30",
           "slot_end": "17:45",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "17:45",
           "slot_end": "18:00",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:00",
           "slot_end": "18:15",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:15",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:30",
           "slot_end": "18:45",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "18:45",
           "slot_end": "19:00",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:00",
           "slot_end": "19:15",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:15",
           "slot_end": "19:30",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:30",
           "slot_end": "19:45",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "19:45",
           "slot_end": "20:00",
-          "free_lanes": 4,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "20:00",
           "slot_end": "20:15",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "20:15",
           "slot_end": "20:30",
-          "free_lanes": 5,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "20:30",
           "slot_end": "20:45",
-          "free_lanes": 8,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
           "weekday": "tuesday",
           "slot_start": "20:45",
           "slot_end": "21:00",
-          "free_lanes": 8,
+          "free_lanes": 5,
           "total_lanes": 10
         },
         {
@@ -5810,28 +5810,28 @@
           "weekday": "wednesday",
           "slot_start": "13:00",
           "slot_end": "13:15",
-          "free_lanes": 5,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "13:15",
           "slot_end": "13:30",
-          "free_lanes": 6,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "13:30",
           "slot_end": "13:45",
-          "free_lanes": 6,
+          "free_lanes": 7,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "13:45",
           "slot_end": "14:00",
-          "free_lanes": 7,
+          "free_lanes": 8,
           "total_lanes": 10
         },
         {
@@ -5922,119 +5922,119 @@
           "weekday": "wednesday",
           "slot_start": "17:00",
           "slot_end": "17:15",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "17:15",
           "slot_end": "17:30",
-          "free_lanes": 3,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "17:30",
           "slot_end": "17:45",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "17:45",
           "slot_end": "18:00",
-          "free_lanes": 4,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:00",
           "slot_end": "18:15",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:15",
           "slot_end": "18:30",
-          "free_lanes": 6,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:30",
           "slot_end": "18:45",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "18:45",
           "slot_end": "19:00",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:00",
           "slot_end": "19:15",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:15",
           "slot_end": "19:30",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:30",
           "slot_end": "19:45",
-          "free_lanes": 7,
+          "free_lanes": 3,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "19:45",
           "slot_end": "20:00",
-          "free_lanes": 6,
+          "free_lanes": 2,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "20:00",
           "slot_end": "20:15",
-          "free_lanes": 5,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "20:15",
           "slot_end": "20:30",
-          "free_lanes": 5,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "20:30",
           "slot_end": "20:45",
-          "free_lanes": 5,
+          "free_lanes": 0,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "20:45",
           "slot_end": "21:00",
-          "free_lanes": 5,
+          "free_lanes": 1,
           "total_lanes": 10
         },
         {
           "weekday": "wednesday",
           "slot_start": "21:00",
           "slot_end": "21:15",
-          "free_lanes": 7,
+          "free_lanes": 6,
           "total_lanes": 10
         },
         {
