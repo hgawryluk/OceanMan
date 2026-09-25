@@ -64,8 +64,9 @@
     <div class="day-nav__inner">
         {% for day_key, day_label in days %}
         <a href="/?day={{ day_key }}"
-           class="day-tab{% if day_key == selected_day %} day-tab--active{% endif %}{% if day_key == today %} day-tab--today{% endif %}">
-            {{ day_label }}{% if day_key == today %}<span class="today-dot"></span>{% endif %}
+           class="day-tab{% if day_key == selected_day %} day-tab--active{% endif %}"
+           data-day-key="{{ day_key }}">
+            {{ day_label }}
         </a>
         {% endfor %}
     </div>
@@ -366,7 +367,24 @@
         });
     }
 
+    function markToday() {
+        var today = todayKey();
+        document.querySelectorAll('.day-tab').forEach(function(tab) {
+            var key = tab.dataset.dayKey;
+            tab.classList.toggle('day-tab--today', key === today);
+            var dot = tab.querySelector('.today-dot');
+            if (key === today && !dot) {
+                var d = document.createElement('span');
+                d.className = 'today-dot';
+                tab.appendChild(d);
+            } else if (key !== today && dot) {
+                dot.remove();
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
+        markToday();
         updateAll();
         tick();
         initCollapse();
